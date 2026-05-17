@@ -1,6 +1,7 @@
 package modelo;
 import java.util.ArrayList;
 import java.util.List;
+import save.Armazenamento;
 
 import modelo.MaterialDeEstudo;
 
@@ -23,5 +24,11 @@ public class GerenciadorDeConteudo {
             contador++;
         }
         System.out.println("---------------------");
+    }
+    public void executarSave(Armazenamento save, String path){
+        save.salvarDados(this, path);
+    }
+    public void executarLoad(Armazenamento load, String path){
+        load.carregarDados(this, path);
     }
 }
