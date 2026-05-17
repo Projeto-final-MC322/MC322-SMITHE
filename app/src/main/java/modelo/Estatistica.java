@@ -1,5 +1,5 @@
 package modelo;
-public class Estatistica {
+public abstract class Estatistica {
     private int sessoesConcluidas;
 
     public Estatistica(){
