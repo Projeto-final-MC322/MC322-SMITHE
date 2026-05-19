@@ -11,6 +11,9 @@ public class App {
 
         GerenciadorDeConteudo gerenciador = new GerenciadorDeConteudo();
 
-        Flashcard sistema_card = new Flashcard;
+        Flashcard sistema_card = new Flashcard();
+
+        System.out.println("Carregando meus materiais de estudo...");
+        gerenciador.listarMateriais();
     }
 }
