@@ -8,7 +8,7 @@ public class EstatisticaDesempenho extends Estatistica {
         super();
         this.totalCardEstudados = 0;
         this.Bazingastotais = 0;
-    }
+    } 
 
     @Override
     public String gerarRelatorio(){
