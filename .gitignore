@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .gradle
 **/build/
 !**/src/**/build/
@@ -19,3 +20,10 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+=======
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+>>>>>>> e883bbd46bf5a9849bfe90b96b77094e741d9c67
