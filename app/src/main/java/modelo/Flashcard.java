@@ -2,13 +2,15 @@ package modelo;
 
 import java.time.LocalDate;
 
+import logica.Revisao_Espacada;
+
 public class Flashcard extends MaterialDeEstudo implements Revisar {
     private String frente;
     private String verso;
-    private int facilidade;
+    private double facilidade;
     private int repeticoes;
     private int intervalos;
-    private LocalData DataProximaRevisao;
+    private LocalDate DataProximaRevisao;
     
     public Flashcard(String titulo, String disciplina, String frente, String verso){
         super(titulo, disciplina);
@@ -40,7 +42,7 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     public void setVerso(String novo_verso){
         this.verso = novo_verso;
     }
-    public String getRepeticoes(){
+    public int getRepeticoes(){
         return repeticoes;
     }
     public void setRepeticoes(int repeticoes){
@@ -49,7 +51,7 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     public double getFacilidade(){
         return facilidade;
     }
-    public void setFacilidade(int facilidade){
+    public void setFacilidade(double facilidade){
         this.facilidade = facilidade;
     }
     public int getIntervalosDias(){
@@ -60,6 +62,10 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     }
     public LocalDate getDataProximaRevisao(){
         return DataProximaRevisao;
+    }
+    public void calcularProximaRevisao(int desempenho){
+        Revisao_Espacada engine = new Revisao_Espacada();
+        engine.processa_revisao(this, desempenho);
     }
     public void setDataProximaRevisao(LocalDate dataProximaRevisao){
         this.DataProximaRevisao = dataProximaRevisao;

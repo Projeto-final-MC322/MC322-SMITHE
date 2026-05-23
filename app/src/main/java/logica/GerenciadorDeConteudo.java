@@ -1,4 +1,4 @@
-package modelo;
+package logica;
 import java.util.ArrayList;
 import java.util.List;
 import save.Armazenamento;
@@ -20,7 +20,7 @@ public class GerenciadorDeConteudo {
         System.out.println("\n--- SUA FORTALEZA DO CONHECIMENTO ---");
         int contador = 1;
         for(MaterialDeEstudo mat : materiais){
-            System.out.println(contador + " - " + mat.getTitulo() + " (" + material.getDisciplina() + ")");
+            System.out.println(contador + " - " + mat.getTitulo() + " (" + mat.getDisciplina() + ")");
             contador++;
         }
         System.out.println("---------------------");

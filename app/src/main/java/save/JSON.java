@@ -1,6 +1,5 @@
 package save;
-import main.java.*;
-import modelo.GerenciadorDeConteudo;
+import logica.GerenciadorDeConteudo;
 
 import java.io.FileWriter;
 import java.io.BufferedReader;
@@ -10,7 +9,7 @@ import java.io.IOException;
 public class JSON implements Armazenamento {
     @Override
     public void salvarDados(GerenciadorDeConteudo gerenciador, String path){
-        System.out.println("Iniciando...")
+        System.out.println("Iniciando...");
 
         try(FileWriter writter = new FileWriter(path)){
             writter.write("{\n");
@@ -26,11 +25,11 @@ public class JSON implements Armazenamento {
     @Override
     public void carregarDados(GerenciadorDeConteudo gerenciador, String path){
 
-        try(BufferReader reader = new BufferedReader(new FileReader(path))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String row;
             System.out.println("Lendo estrutura do arquivo JSON:");
-            while((row = leitor.readLine()) != null){
-                System.out.println(" " + linha);
+            while((row = reader.readLine()) != null){
+                System.out.println(" " + row);
             }
             System.out.println("Banco de dados mental restaurado com sucesso!");
         }catch (IOException e){

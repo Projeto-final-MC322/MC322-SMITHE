@@ -23,7 +23,10 @@ public class GerenciadorDeRevisao {
         }
         return cartoes_filtrados;
     }
-    public getTamanhodoDeck(){
+    public int getTamanhoDoDeck(){
         return this.decks.size();
+    }
+    public void adicionarCartao(Flashcard card){
+        this.decks.add(card);
     }
 }

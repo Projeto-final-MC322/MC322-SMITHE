@@ -6,20 +6,20 @@ public class Revisao_Espacada {
     public void processa_revisao(Flashcard card, int nota){
         int repeticoes = card.getRepeticoes();
         double facilidade = card.getFacilidade();
-        int intervalos = card.getIntervalosDias();
+        int intervalo = card.getIntervalosDias();
 
         if(nota >= 3){
             if(repeticoes == 0){
-                intervalos = 1;
+                intervalo = 1;
             }else if(repeticoes == 1){
-                intervalos = 6;
+                intervalo = 6;
             } else{
-                intervalo = (int) Math.round(intervalos * facilidade);
+                intervalo = (int) Math.round(intervalo * facilidade);
             }
             repeticoes++;
         }else{
             repeticoes = 0;
-            intervalos = 1;
+            intervalo = 1;
         }
         facilidade = facilidade + (0.1 - (5 - nota) *(0.08 + (5 - nota) *0.02));
 
@@ -29,8 +29,8 @@ public class Revisao_Espacada {
 
         card.setRepeticoes(repeticoes);
         card.setFacilidade(facilidade);
-        card.setIntervalos(intervalos);
-        card.setDataProximaRevisao(LocalDate.now().plusDays(intervalos));
+        card.setIntervalos(intervalo);
+        card.setDataProximaRevisao(LocalDate.now().plusDays(intervalo));
     }
 
 }
