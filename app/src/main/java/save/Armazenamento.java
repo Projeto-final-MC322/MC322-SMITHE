@@ -1,6 +1,7 @@
 package save;
-import logica.GerenciadorDeConteudo;
+import logica.GerenciadorDeRevisao;
 public interface Armazenamento {
-    void salvarDados(GerenciadorDeConteudo gerenciador, String path);
-    void carregarDados(GerenciadorDeConteudo gerenciado, String path);
+    void salvarDados(GerenciadorDeRevisao gerenciador, String path);
+    void carregarDados(GerenciadorDeRevisao gerenciado, String path);
+    void excluirArquivo(String path);
 }

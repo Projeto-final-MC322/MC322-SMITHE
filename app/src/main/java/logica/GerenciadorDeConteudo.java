@@ -25,10 +25,4 @@ public class GerenciadorDeConteudo {
         }
         System.out.println("---------------------");
     }
-    public void executarSave(Armazenamento save, String path){
-        save.salvarDados(this, path);
-    }
-    public void executarLoad(Armazenamento load, String path){
-        load.carregarDados(this, path);
-    }
 }

@@ -1,4 +1,5 @@
 package logica;
+
 import modelo.Flashcard;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,9 @@ public class GerenciadorDeRevisao {
         }
     }
     public void excluirFlashcard(Flashcard cartao){
-        if(this.decks.remove(cartao){
+        if(this.decks.remove(cartao)){
             System.out.println("Cartão excluído permanentemente!");
-        })
+        }
     }
     public List<Flashcard> obtercards_hoje(){
         List<Flashcard> cartoes_filtrados = new ArrayList<>();
