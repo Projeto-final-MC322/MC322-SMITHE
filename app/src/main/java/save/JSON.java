@@ -1,6 +1,5 @@
 package save;
-import main.java.*;
-import modelo.GerenciadorDeConteudo;
+import logica.GerenciadorDeConteudo;
 
 import modelo.Flashcard;
 import com.google.gson.Gson;
