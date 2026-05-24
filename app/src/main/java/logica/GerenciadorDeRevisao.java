@@ -12,6 +12,27 @@ public class GerenciadorDeRevisao {
         this.decks.add(card);
     }
 
+    public void criarNovoFlashcard(String titulo, String disciplina, String nova_frente, String novo_verso){
+        Flashcard novo_cartao = new Flashcard(titulo, disciplina, nova_frente, novo_verso);
+        this.decks.add(novo_cartao);
+        System.out.println("Novo cartão registrado com sucesso!");
+
+    }
+    public List<Flashcard> obter_todos_os_cartoes(){
+        return this.decks;
+    }
+    public void editarFlashcard(Flashcard cartao, String nova_frente, String novo_verso){
+        if(cartao != null){
+            cartao.setFrente(nova_frente);
+            cartao.setVerso(novo_verso);
+            System.out.println("Cartão atualizado na memória!");
+        }
+    }
+    public void excluirFlashcard(Flashcard cartao){
+        if(this.decks.remove(cartao){
+            System.out.println("Cartão excluído permanentemente!");
+        })
+    }
     public List<Flashcard> obtercards_hoje(){
         List<Flashcard> cartoes_filtrados = new ArrayList<>();
         LocalDate hoje = LocalDate.now();
