@@ -1,6 +1,5 @@
 package save;
-import main.java.*;
-import modelo.GerenciadorDeConteudo;
+import logica.GerenciadorDeConteudo;
 
 import java.io.FileWriter;
 import java.io.BufferedReader;
@@ -10,7 +9,7 @@ import java.io.IOException;
 public class JSON implements Armazenamento {
     @Override
     public void salvarDados(GerenciadorDeConteudo gerenciador, String path){
-        System.out.println("Iniciando...")
+        System.out.println("Iniciando...");
 
         try(FileWriter writter = new FileWriter(path)){
             writter.write("{\n");

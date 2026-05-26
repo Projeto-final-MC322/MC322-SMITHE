@@ -1,6 +1,7 @@
 package org.example;
-import modelo.GerenciadorDeConteudo;
-import modelo.Flashcards;
+
+import logica.GerenciadorDeConteudo;
+import modelo.Flashcard;
 import modelo.Resumo;
 
 public class App {
@@ -11,7 +12,7 @@ public class App {
 
         GerenciadorDeConteudo gerenciador = new GerenciadorDeConteudo();
 
-        Flashcard sistema_card = new Flashcard();
+        Flashcard sistema_card = new Flashcard(); // passar os parametros
 
         System.out.println("Carregando meus materiais de estudo...");
         gerenciador.listarMateriais();

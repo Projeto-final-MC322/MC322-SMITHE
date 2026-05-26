@@ -17,21 +17,31 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
         System.out.println("Frente: " + this.frente);
         System.out.println("Verso: " + this.verso);
     }
+
     public String getFrente(){
         return this.frente;
     }
+
     public String getVerso(){
         return this.verso;
+    }
+
+    public int getFacilidade(){
+        return this.facilidade;
     }
 
     public void setFrente(String nova_frente){
         this.frente = nova_frente;
     }
+
     public void setVerso(String novo_verso){
         this.verso = novo_verso;
     }
+    
     public void calcularProximaRevisao(int desempenho){
         this.facilidade += (desempenho * 100);
         System.out.println("Troca equivalente realizado com sucesso! Conhecimento transmutado. Nível de facilidade: " + this.facilidade);
     }
+
+
 }
