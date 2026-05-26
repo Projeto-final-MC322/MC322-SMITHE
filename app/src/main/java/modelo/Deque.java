@@ -24,9 +24,9 @@ public class Deque {
         this.flashcards.remove(i);
     }
 
-    // ordena o deque de flashcards por facilidade
-    public void sortFlashcards(){
-        this.flashcards.sort((a, b) -> Integer.compare(b.getFacilidade(), a.getFacilidade()));
-    }
+    // // ordena o deque de flashcards por facilidade
+    // public void sortFlashcards(){
+    //     this.flashcards.sort((a, b) -> Integer.compare(b.getFacilidade(), a.getFacilidade()));
+    // }
 
 }

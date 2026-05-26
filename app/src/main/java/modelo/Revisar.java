@@ -1,5 +1,5 @@
 package modelo;
 
 public interface Revisar {
-    void calcularProximaRevisao(int desempenho);
+    public void calcularProximaRevisao(int desempenho);
 }

@@ -28,16 +28,15 @@ public class Pomodoro implements Timer {
             System.out.println("Não é possível pausar um timer que não foi iniciado.");
         }
     }
-
+    
     public int getMinutos(){
-        return minutos;
+        return this.minutos;
     }
-
     public void setMinutos(int minutos){
         this.minutos = minutos;
     }
 
     public boolean isemExecucao(){
-        return emExecucao;
+        return this.emExecucao;
     }
 }
