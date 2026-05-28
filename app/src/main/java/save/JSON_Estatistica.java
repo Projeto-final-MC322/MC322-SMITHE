@@ -32,7 +32,7 @@ public class JSON_Estatistica {
             return gson.fromJson(reader, EstatisticaDesempenho.class);
         }catch(IOException e){
             System.out.println("Erro ao carregar as estatísticas. A iniciar do zero.");
-            retur new EstatisticaDesempenho();
+            return new EstatisticaDesempenho();
         }
     }
 }
