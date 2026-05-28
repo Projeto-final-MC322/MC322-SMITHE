@@ -3,11 +3,13 @@ package modelo;
 public class EstatisticaDesempenho extends Estatistica {
     private int totalCardEstudados;
     private int Bazingastotais;
+    private int sessoes_pomodoro_concluidas;
 
     public EstatisticaDesempenho(){
         super();
         this.totalCardEstudados = 0;
         this.Bazingastotais = 0;
+        this.sessoes_pomodoro_concluidas = 0;
     } 
 
     @Override
@@ -22,14 +24,19 @@ public class EstatisticaDesempenho extends Estatistica {
         relatorio.append("-------------------------------------------\n");
 
         if(this.Bazingastotais >= 1000){
-            relatorio.append("Classificação Mental: Nível Sheldon Cooper (Gênio)");
+            relatorio.append("Classificação Mental: Nível Sheldon Cooper (Gênio do Estudo)");
         }
         else{
-            relatorio.append("Classificação Mental: Howard Wolowitz (Engenheiro em evolução)");
+            relatorio.append("Classificação Mental: Howard Wolowitz (Apenas um engenheiro, sem Doutorado)");
         }
         relatorio.append("=========================================");
 
         return relatorio.toString();
+    }
+    public void registarsessãoPomodoro(){
+        this.sessoes_pomodoro_concluidas++;
+        this.Bazingastotais += 25;
+        System.out.println("Bazinga! +25 pontos pela sessão Pomodoro concluída!");
     }
 
     public void computarCards(int pontos_ganhos){
