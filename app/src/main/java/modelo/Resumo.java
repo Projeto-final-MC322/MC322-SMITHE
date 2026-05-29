@@ -5,7 +5,7 @@ import modelo.Exportar;
 public class Resumo extends MaterialDeEstudo implements Exportar {
     private String conteudo;
 
-    public Resumo(String Titulo, String disciplina, String conteudo){
+    public Resumo(String titulo, String disciplina, String conteudo){
         super(titulo, disciplina);
         this.conteudo = conteudo;
     }
