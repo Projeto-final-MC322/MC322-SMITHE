@@ -11,8 +11,6 @@ public class MentalMap extends MaterialDeEstudo implements Revisar {
         this.root = new MapNode(this.titulo);
     }
 
-    
-
     public void exibirConteudo(); // Precisa -> MaterialDeEstudo 
     public void calcularProximaRevisao(); // Precisa -> Revisar
 }
