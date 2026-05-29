@@ -27,12 +27,12 @@ public class Pomodoro implements Timer {
         }
     }
     public int getMinutos(){
-        return minutos;
+        return this.minutos;
     }
     public void setMinutos(int minutos){
         this.minutos = minutos;
     }
     public boolean isemExecucao(){
-        return emExecucao;
+        return this.emExecucao;
     }
 }
