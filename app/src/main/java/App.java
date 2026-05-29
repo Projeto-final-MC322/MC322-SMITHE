@@ -1,47 +1,61 @@
 import logica.GerenciadorDeRevisao;
 import modelo.Flashcard;
 import save.JSON;
+import save.JSON_Estatistica;
+import modelo.EstatisticaDesempenho;
 import java.util.List;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("=== TESTE DE MOTOR JSON (GSON) ===\n");
+        Scanner scanner = new Scanner(System.in);
+        String path_cards = "banco_mental_teste.json";
+        String path_estatisticas = "estatisticas_bazinga.json";
+        JSON_Estatistica Stats = new JSON_Estatistica();
 
-        // 1. Instanciamos os motores
+        EstatisticaDesempenho estatisticas = Stats.carrega_estatistica(path_estatisticas);
+
+        System.out.println("Bem-vindo de volta! Já tens " + estatisticas.getTotalCardEstudados() + " cartões estudados.");
+
+
         GerenciadorDeRevisao gerenciadorOriginal = new GerenciadorDeRevisao();
         JSON motorJson = new JSON();
-        String caminhoFicheiro = "banco_mental_teste.json";
-
-        // 2. Criamos os cartões e alocamos na memória do primeiro gestor
-        System.out.println("--- 1. A GERAR CARTÕES NA MEMÓRIA ---");
         gerenciadorOriginal.criarNovoFlashcard("Curiosidade", "Unicamp", "Qual é o melhor trabalho de MC322?", "SMITHE");
-
-        // 3. Disparamos o processo de escrita no disco
-        System.out.println("\n--- 2. A GUARDAR NO DISCO ---");
-        motorJson.salvarDados(gerenciadorOriginal, caminhoFicheiro);
+        try {
+            motorJson.carregarDados(gerenciadorOriginal, path_cards);
+        }catch(Exception e){
+            System.out.println("[Aviso] Nenhum banco de flashcards encontrado. Iniciando um novo...");
+        }
+        
 
         // 4. Simulamos o fechar e abrir da aplicação (Criamos um gestor vazio)
         System.out.println("\n--- 3. A REINICIAR O SISTEMA (NOVO GESTOR) ---");
         GerenciadorDeRevisao gerenciadorNovo = new GerenciadorDeRevisao();
         
-        // Verificamos que o gestor novo está realmente vazio
-        System.out.println("Tamanho do deck antes do Load: " + gerenciadorNovo.obter_todos_os_cartoes().size());
+        System.out.println("========================================");
+        System.out.println("       SISTEMA SMITHE INICIADO          ");
+        System.out.println("========================================");
 
-        // 5. Injetamos os dados do ficheiro neste gestor limpo
-        System.out.println("\n--- 4. A CARREGAR DADOS DO FICHEIRO ---");
-        motorJson.carregarDados(gerenciadorNovo, caminhoFicheiro);
+        boolean executar = true;
+        while(executar){
+            System.out.println("\n--- MENU PRINCIPAL ---");
+            System.out.println("1. Revisar flashcards de hoje");
+            System.out.println("2. Cadastrar Novo Flashcard");
+            System.out.println("3. Ver Relatório de Desempenho");
+            System.out.println("4. Salvar e Sair");
+            System.out.println("Escolha uma opção: ");
 
-        // 6. Imprimimos o resultado final para validação visual
-        System.out.println("\n--- 5. RESULTADO DA EXTRAÇÃO ---");
-        List<Flashcard> cartoesRecuperados = gerenciadorNovo.obter_todos_os_cartoes();
-        
-        for (Flashcard c : cartoesRecuperados) {
-            System.out.println("-> [" + c.getDisciplina() + "] " + c.getTitulo());
-            System.out.println("   Q: " + c.getFrente());
-            System.out.println("   R: " + c.getVerso() + "\n");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch(opcao){
+                case 1:
+                    executarRe
+            }
         }
-        
-        System.out.println("=== TESTE CONCLUÍDO ===");
+        Stats.salvarEstatistica(estatisticas, path_estatisticas);
+        System.out.println(estatisticas.gerarRelatorio());
         motorJson.excluirArquivo("banco_mental_teste.json");
+
     }
 }
