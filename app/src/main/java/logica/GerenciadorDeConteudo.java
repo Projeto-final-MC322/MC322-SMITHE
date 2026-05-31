@@ -1,18 +1,18 @@
 package logica;
+import modelo.MaterialDeEstudo;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import save.Armazenamento;
 
-import modelo.MaterialDeEstudo;
-
-
-
 public class GerenciadorDeConteudo {
     private Map<String, List<MaterialDeEstudo>> materiais_das_disciplinas;
+
     public GerenciadorDeConteudo(){
         this.materiais_das_disciplinas = new LinkedHashMap<>();
     }
+
     public void adicionarMaterial(MaterialDeEstudo mat){
         if(mat != null){
             String disciplina = mat.getDisciplina();
@@ -21,6 +21,7 @@ public class GerenciadorDeConteudo {
             System.out.println("Material " + mat.getTitulo() + "adicionado com sucesso ao deck!");
         }
     }
+    
     public void listarMateriais(){
         System.out.println("\n--- SUA FORTALEZA DO CONHECIMENTO ---");
         int contador = 1;

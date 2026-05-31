@@ -29,9 +29,11 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
         System.out.println("Frente: " + this.frente);
         System.out.println("Verso: " + this.verso);
     }
+
     public String getFrente(){
         return this.frente;
     }
+
     public String getVerso(){
         return this.verso;
     }
@@ -39,6 +41,7 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     public void setFrente(String nova_frente){
         this.frente = nova_frente;
     }
+
     public void setVerso(String novo_verso){
         this.verso = novo_verso;
     }
@@ -63,6 +66,7 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     public LocalDate getDataProximaRevisao(){
         return DataProximaRevisao;
     }
+    
     public void calcularProximaRevisao(int desempenho){
         Revisao_Espacada engine = new Revisao_Espacada();
         engine.processa_revisao(this, desempenho);
@@ -70,4 +74,6 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     public void setDataProximaRevisao(LocalDate dataProximaRevisao){
         this.DataProximaRevisao = dataProximaRevisao;
     }
+
+
 }
