@@ -8,13 +8,11 @@
         <VBox spacing="15" styleClass="menu-padrao" style="-fx-padding: 20;" prefWidth="220">
             <VBox alignment="CENTER" spacing="5">
                 <ImageView fitWidth="100" preserveRatio="true">
-                    <!-- CORRIGIDO: Sem a barra (/) -->
-                    <image><Image url="/logo.png" /></image>
+                    <image><Image url="@logo.png" /></image>
                 </ImageView>
                 <Label text="SMITHE" style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="texto-padrao" />
                 <Label fx:id="lblNivel" text="Nível 1 | 0 BZ" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 10; -fx-background-radius: 15;" styleClass="botao-padrao" />
                 
-                <!-- CORRIGIDO: Sem os emojis de Sol/Lua -->
                 <Button text="[ Modo Escuro / Claro ]" onAction="#alternarTema" styleClass="botao-padrao" style="-fx-margin-top: 10;" />
             </VBox>
             <Separator styleClass="linha-mapa" />
@@ -30,7 +28,7 @@
         <StackPane fx:id="Conteudo" style="-fx-padding: 15;">
             <VBox alignment="CENTER" spacing="15">
                 <ImageView fitWidth="220" preserveRatio="true" opacity="0.8">
-                    <image><Image url="/logo.png" /></image>
+                    <image><Image url="@logo.png" /></image>
                 </ImageView>
                 <Label text="Bem-Vindo ao SMITHE!" style="-fx-font-size: 32px; -fx-font-weight: bold;" styleClass="texto-padrao" />
                 <Label text="★ Study Management in Tech Engineering ★" style="-fx-font-size: 22px; -fx-font-weight: bold;" styleClass="texto-mut" />

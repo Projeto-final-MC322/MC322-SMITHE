@@ -1,12 +1,11 @@
 package GUI;
 import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.Parent;
 import logica.GerenciadorDeRevisao;
 import modelo.EstatisticaDesempenho;
 
@@ -18,6 +17,9 @@ public class TelaPrincipal {
     private GerenciadorDeRevisao gerenciador;
     private EstatisticaDesempenho estatisticas;
     private boolean modoEscuro = false;
+    
+    // VARIÁVEL DE CACHE: Guarda o Pomodoro a correr em segundo plano!
+    private Parent telaPomodoroCache = null;
 
     public void setGerenciador(GerenciadorDeRevisao gerenciador){ this.gerenciador = gerenciador; }
 
@@ -50,18 +52,33 @@ public class TelaPrincipal {
 
     private void carregarTela(String arquivoFxml) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + arquivoFxml));
-            Parent novaTela = loader.load(); // CORREÇÃO FATAL: Parent aceita qualquer ecrã!
-            
-            Object controlador = loader.getController();
-            if(controlador instanceof FlashcardController) {
-                ((FlashcardController) controlador).setGerenciador(this.gerenciador);
-                ((FlashcardController) controlador).setEstatisticas(this.estatisticas, this);
-            } else if(controlador instanceof MapaMentalController) {
-                ((MapaMentalController) controlador).setGerenciador(this.gerenciador);
-                ((MapaMentalController) controlador).setEstatisticas(this.estatisticas, this);
-            } else if(controlador instanceof RevisoesController) {
-                ((RevisoesController) controlador).setup(this.gerenciador, this.estatisticas, this);
+            Parent novaTela;
+
+            // Se for o Pomodoro e já estiver no cache, carrega-o sem reiniciar o tempo!
+            if (arquivoFxml.equals("PomodoroView.fxml") && telaPomodoroCache != null) {
+                novaTela = telaPomodoroCache;
+            } else {
+                // Caso contrário (ou se for outro ecrã), carrega normalmente
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + arquivoFxml));
+                novaTela = loader.load(); 
+                
+                Object controlador = loader.getController();
+                if(controlador instanceof FlashcardController) {
+                    ((FlashcardController) controlador).setGerenciador(this.gerenciador);
+                    ((FlashcardController) controlador).setEstatisticas(this.estatisticas, this);
+                } else if(controlador instanceof MapaMentalController) {
+                    ((MapaMentalController) controlador).setGerenciador(this.gerenciador);
+                    ((MapaMentalController) controlador).setEstatisticas(this.estatisticas, this);
+                } else if(controlador instanceof RevisoesController) {
+                    ((RevisoesController) controlador).setup(this.gerenciador, this.estatisticas, this);
+                } else if(controlador instanceof PomodoroController) {
+                    ((PomodoroController) controlador).setEstatisticas(this.estatisticas, this);
+                }
+
+                // Salva a primeira execução do Pomodoro no Cache
+                if (arquivoFxml.equals("PomodoroView.fxml")) {
+                    telaPomodoroCache = novaTela;
+                }
             }
             
             Conteudo.getChildren().clear(); 

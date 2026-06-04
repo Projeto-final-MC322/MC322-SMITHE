@@ -2,112 +2,127 @@ package GUI;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
-import logica.TimerPomodoro;
+import modelo.EstatisticaDesempenho;
 
 public class PomodoroController {
+
+    @FXML private Label lblTipoSessao;
     @FXML private Label lblTempo;
-    @FXML private Label lblSessoes;   // ← novo label no FXML
+    @FXML private ProgressBar progressTimer;
+    @FXML private Label lblSessoes;
     @FXML private Button btnIniciar;
     @FXML private Button btnPausar;
 
-    private TimerPomodoro timerPomodoro = new TimerPomodoro();
     private Timeline timeline;
-    private int segundosRestantes;
-    private boolean pausado = false;   // ← controla se está pausado
+    // Por padrão: Foco 25 min, Descanso 5 min
+    private int tempoTotal = 25 * 60; 
+    private int tempoRestante = 25 * 60; 
+    private int sessoesConcluidas = 0;
+    private boolean isFoco = true; // True = 25m, False = 5m
+
+    private EstatisticaDesempenho estatisticas;
+    private TelaPrincipal telaPrincipal;
+
+    public void setEstatisticas(EstatisticaDesempenho est, TelaPrincipal tela) {
+        this.estatisticas = est;
+        this.telaPrincipal = tela;
+    }
 
     @FXML
     public void initialize() {
-        // Configura o estado inicial dos botões
+        atualizarLabels();
         btnPausar.setDisable(true);
-        segundosRestantes = timerPomodoro.getTempoAtual();
-        atualizarLabel();
     }
 
     @FXML
     public void cliqueIniciar() {
-        // Se estava pausado, apenas retoma — não cria um novo timeline
-        if (pausado) {
-            pausado = false;
-            timeline.play();
-            btnIniciar.setDisable(true);
-            btnPausar.setDisable(false);
-            return;
-        }
+        // Se já está a correr, não faz nada
+        if (timeline != null && timeline.getStatus() == Timeline.Status.RUNNING) return;
 
-        // Se já há um timer rodando, ignora
-        if (timeline != null && timeline.getStatus() == Timeline.Status.RUNNING) {
-            return;
-        }
+        // O motor do cronómetro que corre de forma independente em segundo plano
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            tempoRestante--;
+            atualizarLabels();
 
-        // Inicia nova sessão
-        segundosRestantes = timerPomodoro.getTempoAtual();
-        atualizarLabel();
-
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            segundosRestantes--;
-            atualizarLabel();
-
-            if (segundosRestantes <= 0) {
-                timeline.stop();
-                sessaoConcluida();
+            if (tempoRestante <= 0) {
+                finalizarCiclo();
             }
         }));
+        
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
+        
         btnIniciar.setDisable(true);
         btnPausar.setDisable(false);
     }
 
     @FXML
     public void cliquePausar() {
-        if (timeline != null && timeline.getStatus() == Timeline.Status.RUNNING) {
-            pausado = true;
+        if (timeline != null) {
             timeline.pause();
-            btnIniciar.setDisable(false);   // "Iniciar" vira o botão de Continuar
-            btnIniciar.setText("Continuar");
-            btnPausar.setDisable(true);
         }
-    }
-
-    private void sessaoConcluida() {
-        timerPomodoro.alternaCiclo();   // alterna foco ↔ pausa e incrementa ciclos
-        atualizarLabelSessoes();
-
-        String mensagem = timerPomodoro.isEmfoco()
-            ? "Pausa acabou! Hora de focar novamente. 🎯"
-            : "Sessão concluída! Tire uma pausa merecida. ☕";
-
-        String titulo = timerPomodoro.isEmfoco() ? "Fim da Pausa" : "Pomodoro Concluído!";
-
-        // Notificação visual
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.show();   // show() não bloqueia; showAndWait() bloquearia o timer
-
-        // Prepara o próximo ciclo automaticamente
-        segundosRestantes = timerPomodoro.getTempoAtual();
-        atualizarLabel();
         btnIniciar.setDisable(false);
-        btnIniciar.setText("Iniciar");
         btnPausar.setDisable(true);
-        pausado = false;
     }
 
-    private void atualizarLabel() {
-        int min = segundosRestantes / 60;
-        int seg = segundosRestantes % 60;
-        lblTempo.setText(String.format("%02d:%02d", min, seg));
+    private void finalizarCiclo() {
+        timeline.stop();
+        btnIniciar.setDisable(false);
+        btnPausar.setDisable(true);
+
+        if (isFoco) {
+            sessoesConcluidas++;
+            lblSessoes.setText("Sessões concluídas: " + sessoesConcluidas);
+            
+            // Integração dos Pontos Bazinga!
+            if (estatisticas != null) {
+                estatisticas.adicionarPontosBazinga(20); 
+                Platform.runLater(() -> telaPrincipal.atualizarNivel());
+            }
+
+            mostrarAviso("Sessão Concluída! 🎉", "Foco incrível! Você completou uma sessão e ganhou +20 Bazingas. Hora de relaxar.");
+            
+            // Alterna para Descanso
+            isFoco = false;
+            tempoTotal = 5 * 60;
+            tempoRestante = tempoTotal;
+            lblTipoSessao.setText("○ SESSÃO DE DESCANSO");
+        } else {
+            mostrarAviso("Descanso Terminado! 🚀", "As baterias estão recarregadas. Vamos voltar aos estudos?");
+            
+            // Alterna para Foco
+            isFoco = true;
+            tempoTotal = 25 * 60;
+            tempoRestante = tempoTotal;
+            lblTipoSessao.setText("● SESSÃO DE FOCO");
+        }
+        atualizarLabels();
     }
 
-    private void atualizarLabelSessoes() {
-        lblSessoes.setText("Sessões concluídas: " + timerPomodoro.getCiclos());
+    private void atualizarLabels() {
+        int minutos = tempoRestante / 60;
+        int segundos = tempoRestante % 60;
+        lblTempo.setText(String.format("%02d:%02d", minutos, segundos));
+        
+        double progresso = 1.0 - ((double) tempoRestante / tempoTotal);
+        progressTimer.setProgress(progresso);
+    }
+
+    private void mostrarAviso(String titulo, String mensagem) {
+        // Platform.runLater garante que o aviso surge independentemente da aba onde estiver!
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(titulo);
+            alert.setHeaderText(null);
+            alert.setContentText(mensagem);
+            alert.showAndWait();
+        });
     }
 }
