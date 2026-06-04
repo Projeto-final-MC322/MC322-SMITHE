@@ -26,19 +26,16 @@ import modelo.MentalMap;
 
 public class MapaMentalController {
 
-    // Tela 1: Listagem de Mapas (Galeria)
     @FXML private VBox telaListagem;
     @FXML private FlowPane gridMapas;
     @FXML private TextField txtNovaDisciplina;
     @FXML private TextField txtNovoTitulo;
 
-    // Tela 2: Mapa Aberto (Edição)
     @FXML private VBox telaMapa;
     @FXML private Label lblTituloMapaAberto;
     @FXML private Pane paneDesenho;
     @FXML private TextField txtNovoTopico;
     
-    // Painel Lateral (Redação)
     @FXML private VBox boxEdicao;
     @FXML private Label lblNomeTopico;
     @FXML private TextArea txtConteudoTopico;
@@ -48,7 +45,6 @@ public class MapaMentalController {
     private MentalMap mapaAtual;
     private MapNode nodeSelecionado = null;
     
-    // Variáveis de renderização geométrica
     private Map<MapNode, StackPane> nodeViews = new HashMap<>();
     private StackPane viewSelecionada = null;
     
@@ -61,10 +57,6 @@ public class MapaMentalController {
         carregarListagem();
     }
 
-    // ==========================================
-    // PARTE 1: A GALERIA DE MAPAS MENTAIS
-    // ==========================================
-
     private void carregarListagem() {
         gridMapas.getChildren().clear();
         List<MaterialDeEstudo> todos = gerenciadorConteudo.obterTodososMateriais();
@@ -72,7 +64,6 @@ public class MapaMentalController {
         for (MaterialDeEstudo mat : todos) {
             if (mat instanceof MentalMap) {
                 MentalMap mapa = (MentalMap) mat;
-                
                 VBox card = new VBox(5);
                 card.setAlignment(Pos.CENTER);
                 card.setPadding(new Insets(15));
@@ -81,13 +72,11 @@ public class MapaMentalController {
                 
                 Label lblDisc = new Label(mapa.getDisciplina());
                 lblDisc.setStyle("-fx-text-fill: #c8e6c4; -fx-font-weight: bold; -fx-font-size: 14px;");
-                
                 Label lblTopicos = new Label(contarTopicos(mapa.getRoot()) + " tópicos");
                 lblTopicos.setStyle("-fx-text-fill: #6a8a66; -fx-font-size: 11px;");
                 
                 card.getChildren().addAll(lblDisc, lblTopicos);
                 card.setOnMouseClicked(e -> abrirMapa(mapa));
-                
                 gridMapas.getChildren().add(card);
             }
         }
@@ -109,20 +98,14 @@ public class MapaMentalController {
         if (disciplina.isEmpty()) return;
 
         MentalMap existente = gerenciadorConteudo.obterMapaMentalDaDisciplina(disciplina);
-        
         if (existente == null) {
-            // CORREÇÃO: A raiz do mapa é SEMPRE a Disciplina (O Centro)
             MentalMap novo = new MentalMap(disciplina, disciplina);
             gerenciadorConteudo.adicionarMaterial(novo);
-            
-            // Se ele preencheu o campo de tópico, cria orbitando a raiz
             if (!topico.isEmpty() && !topico.equalsIgnoreCase(disciplina)) {
                 novo.getRoot().addChild(topico);
             }
             abrirMapa(novo);
-            
         } else {
-            // CORREÇÃO: O mapa existe. Adiciona o novo tópico orbitando a raiz!
             if (!topico.isEmpty()) {
                 boolean jaExiste = false;
                 for (MapNode filho : existente.getRoot().getChildren()) {
@@ -134,20 +117,14 @@ public class MapaMentalController {
             }
             abrirMapa(existente);
         }
-        
         txtNovaDisciplina.clear();
         txtNovoTitulo.clear();
     }
-
-    // ==========================================
-    // PARTE 2: A TELA DO MAPA ABERTO E NAVEGAÇÃO
-    // ==========================================
 
     private void abrirMapa(MentalMap mapa) {
         this.mapaAtual = mapa;
         telaListagem.setVisible(false);
         telaMapa.setVisible(true);
-        
         lblTituloMapaAberto.setText("Mapa de " + mapa.getDisciplina());
         desenharMapaCompleto();
     }
@@ -156,9 +133,7 @@ public class MapaMentalController {
     public void voltarParaListagem() {
         telaMapa.setVisible(false);
         telaListagem.setVisible(true);
-        mapaAtual = null;
-        nodeSelecionado = null;
-        viewSelecionada = null;
+        mapaAtual = null; nodeSelecionado = null; viewSelecionada = null;
         carregarListagem(); 
     }
 
@@ -167,89 +142,81 @@ public class MapaMentalController {
         String novoNome = txtNovoTopico.getText().trim();
         if (novoNome.isEmpty() || mapaAtual == null) return;
         
-        // Se um nó estiver selecionado, o novo orbita ele. Se não, orbita o centro (raiz).
         if (nodeSelecionado != null) {
             nodeSelecionado.addChild(novoNome);
         } else {
             mapaAtual.getRoot().addChild(novoNome);
         }
-        
         txtNovoTopico.clear();
         desenharMapaCompleto(); 
     }
 
-    // ==========================================
-    // PARTE 3: ALGORITMO DIAMETRAL (ESPAÇAMENTO PERFEITO)
-    // ==========================================
+    // Função engatilhada pelo botão "Reorganizar Mapa"
+    @FXML
+    public void reorganizarMapa() {
+        if (mapaAtual != null) {
+            desenharMapaCompleto(); // Recalcula posições diametrais do zero
+        }
+    }
 
     private void desenharMapaCompleto() {
         nodeViews.clear();
         paneDesenho.getChildren().clear();
         boxEdicao.setDisable(true);
-        nodeSelecionado = null;
-        viewSelecionada = null;
+        nodeSelecionado = null; viewSelecionada = null;
         
-        // Determina o centro absoluto do painel
         double centroX = paneDesenho.getPrefWidth() > 0 ? paneDesenho.getPrefWidth() / 2 : 400;
         double centroY = paneDesenho.getPrefHeight() > 0 ? paneDesenho.getPrefHeight() / 2 : 300;
         
         if (mapaAtual.getRoot() != null) {
-            // A raiz ganha a "pizza" inteira (0 a 360 graus) para distribuir aos filhos
-            desenharMapaDiametral(mapaAtual.getRoot(), centroX, centroY, 0, 360, 0, null, 0, 0);
+            desenharMapaDiametral(mapaAtual.getRoot(), centroX, centroY, 0, 360, 0, null, 0);
         }
     }
 
-    /**
-     * Algoritmo de Distribuição Radial Fatiada
-     * Evita sobreposições dividindo o ângulo do pai entre os filhos e aumentando o raio.
-     */
-    private void desenharMapaDiametral(MapNode no, double cx, double cy, double anguloInicio, double anguloFim, int nivel, MapNode pai, double paiX, double paiY) {
+    // Agora o método retorna a view criada para poder amarrar a linha de forma dinâmica!
+    private StackPane desenharMapaDiametral(MapNode no, double cx, double cy, double anguloInicio, double anguloFim, int nivel, StackPane viewPai, double raioPai) {
         double x = cx;
         double y = cy;
 
         if (nivel > 0) {
-            // O nó é posicionado exatamente no MEIO da fatia de ângulo que recebeu do pai
             double anguloMeio = anguloInicio + (anguloFim - anguloInicio) / 2.0;
-            
-            // CORREÇÃO DE ESPAÇAMENTO: A cada nível, a órbita salta 160 pixels de distância!
             double raio = nivel * 160.0; 
-            
             x = cx + raio * Math.cos(Math.toRadians(anguloMeio));
             y = cy + raio * Math.sin(Math.toRadians(anguloMeio));
         }
 
-        // 1. Desenha a linha conectando ao pai
-        if (pai != null) {
-            desenharLinha(paiX, paiY, x, y);
+        boolean isRaiz = (nivel == 0);
+        double raioAtual = isRaiz ? 50 : 35; // Define o raio baseado se é raiz ou filho
+
+        // 1. Renderiza a bolinha e obtém a View
+        StackPane viewAtual = renderizarNo(no, isRaiz, x, y, raioAtual);
+
+        // 2. Desenha a linha ELÁSTICA (Binding) ligando o pai a este filho
+        if (viewPai != null) {
+            desenharLinhaElastica(viewPai, viewAtual, raioPai, raioAtual);
         }
 
-        // 2. Renderiza a bolinha
-        renderizarNo(no, nivel == 0, x, y);
-
-        // 3. Divide a "fatia" deste nó igualmente entre os filhos dele
+        // 3. Renderiza os filhos recursivamente
         int numFilhos = no.getChildren() != null ? no.getChildren().size() : 0;
         if (numFilhos > 0) {
-            double tamanhoDaFatiaFilho = (anguloFim - anguloInicio) / numFilhos;
+            double tamanhoFatia = (anguloFim - anguloInicio) / numFilhos;
             for (int i = 0; i < numFilhos; i++) {
-                double inicioFilho = anguloInicio + (i * tamanhoDaFatiaFilho);
-                double fimFilho = inicioFilho + tamanhoDaFatiaFilho;
-                
+                double inicioFilho = anguloInicio + (i * tamanhoFatia);
+                double fimFilho = inicioFilho + tamanhoFatia;
                 desenharMapaDiametral(
                     no.getChildren().get(i), 
-                    cx, cy, 
-                    inicioFilho, 
-                    fimFilho, 
+                    cx, cy, inicioFilho, fimFilho, 
                     nivel + 1, 
-                    no, x, y
+                    viewAtual, raioAtual
                 );
             }
         }
+        return viewAtual;
     }
 
-    private void renderizarNo(MapNode no, boolean isRaiz, double x, double y) {
+    private StackPane renderizarNo(MapNode no, boolean isRaiz, double x, double y, double raio) {
         StackPane view = new StackPane();
-        // A raiz é maior (50) para destacar o centro do mapa
-        Circle circulo = new Circle(isRaiz ? 50 : 35);
+        Circle circulo = new Circle(raio);
         circulo.setFill(Color.web(COR_FUNDO));
         circulo.setStroke(Color.web(COR_BORDA));
         circulo.setStrokeWidth(isRaiz ? 3 : 1.5);
@@ -260,32 +227,47 @@ public class MapaMentalController {
         lbl.setMaxWidth(isRaiz ? 85 : 60);
         lbl.setAlignment(Pos.CENTER);
         
-        if (isRaiz) {
-            lbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #c8e6c4; -fx-font-size: 13px;");
-        }
+        if (isRaiz) lbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #c8e6c4; -fx-font-size: 13px;");
 
         view.getChildren().addAll(circulo, lbl);
-        
-        // Centraliza a bolinha exatamente na coordenada matemática calculada
-        view.setLayoutX(x - circulo.getRadius());
-        view.setLayoutY(y - circulo.getRadius());
+        view.setLayoutX(x - raio);
+        view.setLayoutY(y - raio);
+        view.setCursor(javafx.scene.Cursor.HAND);
 
-        view.setOnMouseClicked(e -> selecionarNo(no, view, circulo));
+        // --- LÓGICA DE ARRASTAR E SOLTAR (DRAG AND DROP) ---
+        view.setOnMousePressed(e -> {
+            // Guarda a diferença entre o clique do rato e o canto superior da view
+            view.setUserData(new double[]{view.getLayoutX() - e.getSceneX(), view.getLayoutY() - e.getSceneY()});
+            selecionarNo(no, view, circulo);
+        });
+
+        view.setOnMouseDragged(e -> {
+            double[] offset = (double[]) view.getUserData();
+            // Move a bolinha pelo mapa de acordo com o cursor
+            view.setLayoutX(e.getSceneX() + offset[0]);
+            view.setLayoutY(e.getSceneY() + offset[1]);
+        });
 
         nodeViews.put(no, view);
         paneDesenho.getChildren().add(view); 
+        return view;
     }
 
-    private void desenharLinha(double startX, double startY, double endX, double endY) {
-        Line linha = new Line(startX, startY, endX, endY);
+    private void desenharLinhaElastica(StackPane startView, StackPane endView, double startRaio, double endRaio) {
+        Line linha = new Line();
         linha.setStroke(Color.web(COR_BORDA));
         linha.setStrokeWidth(2);
-        paneDesenho.getChildren().add(0, linha); 
-    }
 
-    // ==========================================
-    // PARTE 4: A REDAÇÃO DE CONTEÚDO (CAIXA DE TEXTO)
-    // ==========================================
+        // A MÁGICA: A linha está "amarrada" ao layout das bolinhas + o raio (para ir pro centro)
+        // Quando a bolinha for arrastada, a linha atualiza a sua posição automaticamente!
+        linha.startXProperty().bind(startView.layoutXProperty().add(startRaio));
+        linha.startYProperty().bind(startView.layoutYProperty().add(startRaio));
+        
+        linha.endXProperty().bind(endView.layoutXProperty().add(endRaio));
+        linha.endYProperty().bind(endView.layoutYProperty().add(endRaio));
+
+        paneDesenho.getChildren().add(0, linha); // Adiciona a linha no fundo (índice 0)
+    }
 
     private void selecionarNo(MapNode no, StackPane view, Circle circulo) {
         if (viewSelecionada != null) {

@@ -28,6 +28,7 @@
                         <Button text="⬅ Voltar" onAction="#voltarParaListagem" styleClass="button" />
                         <Label fx:id="lblTituloMapaAberto" text="Disciplina - Mapa" style="-fx-text-fill: #c8e6c4; -fx-font-size: 18px; -fx-font-weight: bold;" />
                         <Region HBox.hgrow="ALWAYS" />
+                        <Button text="🔄 Reorganizar Mapa" onAction="#reorganizarMapa" style="-fx-background-color: #2a3d4a; -fx-text-fill: white; -fx-border-radius: 5; -fx-background-radius: 5;" />
                         <TextField fx:id="txtNovoTopico" promptText="Nome do Novo Subtópico" prefWidth="200" styleClass="text-field" />
                         <Button text="➕ Adicionar Tópico" onAction="#adicionarTopico" styleClass="button" />
                     </children>
