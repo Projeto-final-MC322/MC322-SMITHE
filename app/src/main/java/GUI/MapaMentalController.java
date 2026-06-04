@@ -58,7 +58,7 @@ public class MapaMentalController {
 
     public void setGerenciador(GerenciadorDeRevisao gerenciador) {
         this.gerenciadorRevisao = gerenciador;
-        carregarListagem(); // Carrega a galeria assim que a tela abre
+        carregarListagem();
     }
 
     // ==========================================
@@ -67,14 +67,12 @@ public class MapaMentalController {
 
     private void carregarListagem() {
         gridMapas.getChildren().clear();
-        
         List<MaterialDeEstudo> todos = gerenciadorConteudo.obterTodososMateriais();
         
         for (MaterialDeEstudo mat : todos) {
             if (mat instanceof MentalMap) {
                 MentalMap mapa = (MentalMap) mat;
                 
-                // Cria um cartãozinho visual para cada disciplina
                 VBox card = new VBox(5);
                 card.setAlignment(Pos.CENTER);
                 card.setPadding(new Insets(15));
@@ -88,8 +86,6 @@ public class MapaMentalController {
                 lblTopicos.setStyle("-fx-text-fill: #6a8a66; -fx-font-size: 11px;");
                 
                 card.getChildren().addAll(lblDisc, lblTopicos);
-                
-                // Ao clicar no cartão, a tela 2 abre!
                 card.setOnMouseClicked(e -> abrirMapa(mapa));
                 
                 gridMapas.getChildren().add(card);
@@ -117,9 +113,19 @@ public class MapaMentalController {
         if (existente == null) {
             MentalMap novo = new MentalMap(titulo, disciplina);
             gerenciadorConteudo.adicionarMaterial(novo);
-            abrirMapa(novo); // Cria e já entra no mapa
+            abrirMapa(novo);
         } else {
-            abrirMapa(existente); // Já existe? Apenas entra
+            // NOVIDADE: Adiciona como subtópico se a disciplina já existir e o título for diferente
+            if (!titulo.equals(existente.getRoot().getName()) && !titulo.equals(disciplina)) {
+                boolean jaExiste = false;
+                for(MapNode filho : existente.getRoot().getChildren()){
+                    if(filho.getName().equalsIgnoreCase(titulo)) jaExiste = true;
+                }
+                if(!jaExiste){
+                    existente.getRoot().addChild(titulo);
+                }
+            }
+            abrirMapa(existente);
         }
         
         txtNovaDisciplina.clear();
@@ -146,7 +152,7 @@ public class MapaMentalController {
         mapaAtual = null;
         nodeSelecionado = null;
         viewSelecionada = null;
-        carregarListagem(); // Atualiza a galeria ao voltar
+        carregarListagem(); 
     }
 
     @FXML
@@ -154,7 +160,6 @@ public class MapaMentalController {
         String novoNome = txtNovoTopico.getText().trim();
         if (novoNome.isEmpty() || mapaAtual == null) return;
         
-        // Se um nó estiver clicado, adiciona como filho dele. Senão, adiciona na raiz principal.
         if (nodeSelecionado != null) {
             nodeSelecionado.addChild(novoNome);
         } else {
@@ -162,11 +167,11 @@ public class MapaMentalController {
         }
         
         txtNovoTopico.clear();
-        desenharMapaCompleto(); // Atualiza a tela com a nova bolinha
+        desenharMapaCompleto(); 
     }
 
     // ==========================================
-    // PARTE 3: O MOTOR GEOMÉTRICO DO GRAFO
+    // PARTE 3: O NOVO MOTOR GEOMÉTRICO (ÁRVORE RADIAL)
     // ==========================================
 
     private void desenharMapaCompleto() {
@@ -176,53 +181,79 @@ public class MapaMentalController {
         nodeSelecionado = null;
         viewSelecionada = null;
         
+        // Determina o centro absoluto do painel
         double centroX = paneDesenho.getPrefWidth() > 0 ? paneDesenho.getPrefWidth() / 2 : 400;
         double centroY = paneDesenho.getPrefHeight() > 0 ? paneDesenho.getPrefHeight() / 2 : 300;
         
         if (mapaAtual.getRoot() != null) {
-            desenharMapaExistente(mapaAtual.getRoot(), true, centroX, centroY);
+            // Inicia o desenho dando os 360 graus completos para a raiz distribuir aos filhos
+            desenharMapaRadial(mapaAtual.getRoot(), centroX, centroY, 0, 360, 0, null, 0, 0);
         }
     }
 
-    private void desenharMapaExistente(MapNode no, boolean isRaiz, double x, double y) {
-        renderizarNo(no, isRaiz, x, y);
-        
-        int numFilhos = no.getChildren() != null ? no.getChildren().size() : 0;
-        double anguloPasso = numFilhos > 0 ? 360.0 / numFilhos : 0;
-        double raio = isRaiz ? 120.0 : 80.0;
+    /**
+     * Algoritmo de Árvore Radial Concêntrica
+     * Garante simetria perfeita e anéis distintos para cada nível (filhos, netos, etc.)
+     */
+    private void desenharMapaRadial(MapNode no, double cx, double cy, double anguloInicio, double anguloFim, int nivel, MapNode pai, double paiX, double paiY) {
+        double x = cx;
+        double y = cy;
 
-        int i = 0;
-        if (no.getChildren() != null) {
-            for (MapNode filho : no.getChildren()) {
-                double anguloRad = Math.toRadians(i * anguloPasso);
-                double filhoX = x + raio * Math.cos(anguloRad);
-                double filhoY = y + raio * Math.sin(anguloRad);
-                
-                desenharLinha(x, y, filhoX, filhoY); // Trilha a linha
-                desenharMapaExistente(filho, false, filhoX, filhoY); // Desenha o filho por cima
-                i++;
+        // Se não for a raiz, calcula a posição no anel concêntrico correspondente ao seu nível
+        if (nivel > 0) {
+            double anguloMeio = anguloInicio + (anguloFim - anguloInicio) / 2.0;
+            double raio = nivel * 130.0; // Cada subnível fica 130px mais distante do centro
+            
+            x = cx + raio * Math.cos(Math.toRadians(anguloMeio));
+            y = cy + raio * Math.sin(Math.toRadians(anguloMeio));
+        }
+
+        // 1. Desenha a linha de conexão PRIMEIRO (para ficar atrás da bolinha)
+        if (pai != null) {
+            desenharLinha(paiX, paiY, x, y);
+        }
+
+        // 2. Renderiza a bolinha e o texto
+        renderizarNo(no, nivel == 0, x, y);
+
+        // 3. Fatiamento recursivo do ângulo para os filhos deste nó
+        int numFilhos = no.getChildren() != null ? no.getChildren().size() : 0;
+        if (numFilhos > 0) {
+            double fatia = (anguloFim - anguloInicio) / numFilhos;
+            for (int i = 0; i < numFilhos; i++) {
+                desenharMapaRadial(
+                    no.getChildren().get(i), 
+                    cx, cy, 
+                    anguloInicio + (i * fatia), 
+                    anguloInicio + ((i + 1) * fatia), 
+                    nivel + 1, 
+                    no, x, y
+                );
             }
         }
     }
 
     private void renderizarNo(MapNode no, boolean isRaiz, double x, double y) {
         StackPane view = new StackPane();
-        Circle circulo = new Circle(isRaiz ? 40 : 30);
+        Circle circulo = new Circle(isRaiz ? 45 : 30);
         circulo.setFill(Color.web(COR_FUNDO));
         circulo.setStroke(Color.web(COR_BORDA));
-        circulo.setStrokeWidth(isRaiz ? 2 : 1.5);
+        circulo.setStrokeWidth(isRaiz ? 3 : 1.5);
 
         Label lbl = new Label(no.getName()); 
         lbl.setTextFill(Color.WHITE);
         lbl.setWrapText(true);
-        lbl.setMaxWidth(isRaiz ? 70 : 50);
+        lbl.setMaxWidth(isRaiz ? 80 : 50);
         lbl.setAlignment(Pos.CENTER);
+        
+        if (isRaiz) {
+            lbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #c8e6c4;");
+        }
 
         view.getChildren().addAll(circulo, lbl);
         view.setLayoutX(x - circulo.getRadius());
         view.setLayoutY(y - circulo.getRadius());
 
-        // Atribui o evento de Clique!
         view.setOnMouseClicked(e -> selecionarNo(no, view, circulo));
 
         nodeViews.put(no, view);
@@ -244,26 +275,24 @@ public class MapaMentalController {
         if (viewSelecionada != null) {
             Circle ant = (Circle) viewSelecionada.getChildren().get(0);
             ant.setStroke(Color.web(COR_BORDA));
-            ant.setStrokeWidth(1.5);
+            // Devolve a borda grossa se for a raiz, fina se for filho
+            ant.setStrokeWidth(ant.getRadius() > 35 ? 3 : 1.5);
         }
         nodeSelecionado = no;
         viewSelecionada = view;
         circulo.setStroke(Color.web(COR_SEL));
-        circulo.setStrokeWidth(3);
+        circulo.setStrokeWidth(4); // Destaca fortemente o selecionado
 
         boxEdicao.setDisable(false);
         lblNomeTopico.setText("Tópico: " + no.getName());
-        
-        // Puxa da memória da classe MapNode o texto já redigido
         txtConteudoTopico.setText(no.getDefinition() != null ? no.getDefinition() : "");
     }
 
     @FXML
     public void salvarConteudoNo() {
         if (nodeSelecionado != null) {
-            // Salva na memória da classe MapNode
             nodeSelecionado.setDefinition(txtConteudoTopico.getText());
-            mostrarAviso("Salvo!", "A redação do tópico '" + nodeSelecionado.getName() + "' foi salva no mapa.");
+            mostrarAviso("Salvo!", "A redação do tópico '" + nodeSelecionado.getName() + "' foi salva.");
         }
     }
     
@@ -271,7 +300,7 @@ public class MapaMentalController {
     public void removerNo() {
         if (nodeSelecionado != null && mapaAtual != null) {
             if (nodeSelecionado == mapaAtual.getRoot()) {
-                mostrarAviso("Aviso", "Não é possível remover o tópico raiz.");
+                mostrarAviso("Aviso", "Não é possível remover o tópico raiz (centro do mapa).");
             } else {
                 mapaAtual.removerNo(nodeSelecionado.getName());
                 desenharMapaCompleto();
