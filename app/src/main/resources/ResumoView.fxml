@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+
+<StackPane prefHeight="600.0" prefWidth="720.0" styleClass="fundo-padrao" stylesheets="@smithe.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.ResumoController">
+    <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
+        <image><Image url="@logo.png" /></image>
+    </ImageView>
+    <children>
+        <VBox spacing="0" style="-fx-padding: 40; -fx-background-color: transparent;">
+            <children>
+                <VBox spacing="4" style="-fx-padding: 0 0 28 0;">
+                    <children>
+                        <Label text="ANOTAÇÕES" styleClass="texto-mut" style="-fx-font-size: 11px;" />
+                        <Label text="Criar novo resumo" styleClass="texto-padrao" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="14" maxWidth="560">
+                    <children>
+                        <VBox spacing="5">
+                            <children>
+                                <Label text="TíTULO" styleClass="texto-mut" style="-fx-font-size: 12px;" />
+                                <TextField fx:id="txtTitulo" promptText="Ex: Pilares da POO" styleClass="input-padrao" style="-fx-padding: 10 14; -fx-font-size: 13px;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <children>
+                                <Label text="Disciplina" styleClass="texto-mut" style="-fx-font-size: 12px;" />
+                                <TextField fx:id="txtDisciplina" promptText="Ex: Computação, Unicamp" styleClass="input-padrao" style="-fx-padding: 10 14; -fx-font-size: 13px;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <children>
+                                <Label text="Conteúdo" styleClass="texto-mut" style="-fx-font-size: 12px;" />
+                                <TextArea fx:id="txtConteudo" promptText="Escreva o seu resumo aqui..." prefHeight="240.0" wrapText="true" styleClass="input-padrao" style="-fx-padding: 10 14; -fx-font-size: 13px;" />
+                            </children>
+                        </VBox>
+
+                        <Button text="Salvar e Exportar .TXT" onAction="#salvarEExportar" prefHeight="42" prefWidth="220" styleClass="botao-padrao" style="-fx-border-width: 0;">
+                            <VBox.margin><Insets top="6" /></VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

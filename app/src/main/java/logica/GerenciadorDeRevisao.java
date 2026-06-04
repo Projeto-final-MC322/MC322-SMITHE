@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
-
+import java.util.Collections;
 
 public class GerenciadorDeRevisao {
     private Map<String, List<Flashcard>> decks = new LinkedHashMap<>();
@@ -16,7 +16,7 @@ public class GerenciadorDeRevisao {
         if(card != null){
             String disciplina = card.getDisciplina();
             this.decks.putIfAbsent(disciplina, new ArrayList<>());
-            this.decks.add(disciplina).add(card);
+            this.decks.get(disciplina).add(card);
 
         }
     }
@@ -67,7 +67,7 @@ public class GerenciadorDeRevisao {
         LocalDate hoje = LocalDate.now();
 
         for(List<Flashcard> lista : decks.values()){
-            for(Flashcard card : listaMateria) {
+            for(Flashcard card : lista) {
                 if(!card.getDataProximaRevisao().isAfter(hoje)){
                     cartoes_filtrados.add(card);
                 }
@@ -78,8 +78,16 @@ public class GerenciadorDeRevisao {
     public int getTamanhoDoDeck(){
         int total = 0;
         for(List<Flashcard> lista : decks.values()){
-            totla += lista.size();
+            total += lista.size();
         }
         return total;
     }
+    public void avaliaFlashcard(Flashcard cartao, int nota){
+        if(cartao != null){
+            Revisao_Espacada algoritmo = new Revisao_Espacada();
+            algoritmo.processa_revisao(cartao, nota);
+            System.out.println("Revisão registrada! Próxima revisão em " + cartao.getDataProximaRevisao());
+        }
+    }
 }
+

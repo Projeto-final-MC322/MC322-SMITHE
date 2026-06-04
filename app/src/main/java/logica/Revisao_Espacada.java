@@ -1,12 +1,13 @@
 package logica;
 import modelo.Flashcard;
+import modelo.Revisar;
 import java.time.LocalDate;
 
 public class Revisao_Espacada {
-    public void processa_revisao(Flashcard card, int nota){
-        int repeticoes = card.getRepeticoes();
-        double facilidade = card.getFacilidade();
-        int intervalo = card.getIntervalosDias();
+    public void processa_revisao(Revisar item ,int nota){
+        int repeticoes = item.getRepeticoes();
+        double facilidade = item.getFacilidade();
+        int intervalo = item.getIntervalosDias();
 
         if(nota >= 3){
             if(repeticoes == 0){
@@ -27,10 +28,10 @@ public class Revisao_Espacada {
             facilidade = 1.3;
         }
 
-        card.setRepeticoes(repeticoes);
-        card.setFacilidade(facilidade);
-        card.setIntervalos(intervalo);
-        card.setDataProximaRevisao(LocalDate.now().plusDays(intervalo));
+        item.setRepeticoes(repeticoes);
+        item.setFacilidade(facilidade);
+        item.setIntervalos(intervalo);
+        item.setDataProximaRevisao(LocalDate.now().plusDays(intervalo));
     }
 
 }

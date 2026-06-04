@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<StackPane styleClass="fundo-padrao" stylesheets="@smithe.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.MapaMentalController">
+    <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
+        <image><Image url="/logo.png" /></image> </ImageView>
+
+    <VBox fx:id="telaListagem" spacing="20" style="-fx-padding: 30;">
+        <Label text="🧠 GALERIA DE MAPAS" style="-fx-font-size: 22px; -fx-font-weight: bold;" styleClass="texto-padrao" />
+        <HBox spacing="10">
+            <TextField fx:id="txtNovaDisciplina" promptText="Disciplina" styleClass="input-padrao" />
+            <TextField fx:id="txtNovoTitulo" promptText="Tópico Central" styleClass="input-padrao" />
+            <Button text="Criar" onAction="#criarMapaDaListagem" styleClass="botao-padrao" />
+        </HBox>
+        <FlowPane fx:id="gridMapas" hgap="15" vgap="15" />
+    </VBox>
+
+    <StackPane fx:id="telaMapa" visible="false">
+        <VBox spacing="10" style="-fx-padding: 20;">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="⬅ Voltar" onAction="#voltarParaListagem" styleClass="botao-padrao" />
+                <Label fx:id="lblTituloMapaAberto" styleClass="texto-padrao" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="🔄 Reorganizar" onAction="#reorganizarMapa" styleClass="botao-padrao" />
+                <TextField fx:id="txtNovoTopico" promptText="Novo Subtópico" styleClass="input-padrao" />
+                <Button text="➕ Adicionar" onAction="#adicionarTopico" styleClass="botao-padrao" />
+            </HBox>
+            <HBox spacing="15" VBox.vgrow="ALWAYS">
+                <Pane fx:id="paneDesenho" HBox.hgrow="ALWAYS" />
+                <VBox fx:id="boxEdicao" prefWidth="280" spacing="12" styleClass="card-padrao" style="-fx-padding: 15;" disable="true">
+                    <Label fx:id="lblNomeTopico" styleClass="texto-padrao" style="-fx-font-weight: bold;" />
+                    <TextArea fx:id="txtConteudoTopico" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <Button text="💾 Salvar" onAction="#salvarConteudoNo" maxWidth="Infinity" styleClass="botao-padrao" />
+                    <Button text="🗑 Remover" onAction="#removerNo" maxWidth="Infinity" styleClass="botao-padrao" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </StackPane>
+</StackPane>

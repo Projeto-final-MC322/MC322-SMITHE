@@ -15,7 +15,7 @@ public class JSON_Estatistica {
     }
 
     public void salvarEstatistica(EstatisticaDesempenho estatisticas, String path){
-        try(FileWritter writter = new FileWriter(path)){
+        try(FileWriter writter = new FileWriter(path)){
             gson.toJson(estatisticas, writter);
             System.out.println("Estatística gravadas com sucesso!");
         }catch (IOException e){

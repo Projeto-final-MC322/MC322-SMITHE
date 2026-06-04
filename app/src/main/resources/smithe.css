@@ -1,0 +1,42 @@
+/* MODO CLARO (Cores Originais da Logo) */
+.root {
+    -smithe-bg: #f1f8e9;
+    -smithe-menu: #c8e6c4;
+    -smithe-btn: #81c784;
+    -smithe-btn-hover: #4caf50;
+    -smithe-text: #1b5e20;
+    -smithe-text-mut: #388e3c;
+    -smithe-card: #ffffff;
+    -smithe-border: #a5d6a7;
+}
+
+/* MODO ESCURO */
+.dark-theme {
+    -smithe-bg: #0b120a;
+    -smithe-menu: #132111;
+    -smithe-btn: #254020;
+    -smithe-btn-hover: #3a6332;
+    -smithe-text: #e8f5e9;
+    -smithe-text-mut: #a5d6a7;
+    -smithe-card: #141f12;
+    -smithe-border: #2d3d2a;
+}
+
+/* CLASSES APLICADAS AOS FXMLs */
+.fundo-padrao { -fx-background-color: -smithe-bg; }
+.menu-padrao { -fx-background-color: -smithe-menu; }
+.botao-padrao { -fx-background-color: -smithe-btn; -fx-text-fill: -smithe-text; -fx-font-weight: bold; -fx-cursor: hand; }
+.botao-padrao:hover { -fx-background-color: -smithe-btn-hover; -fx-text-fill: #ffffff; }
+.texto-padrao { -fx-text-fill: -smithe-text; }
+.texto-mut { -fx-text-fill: -smithe-text-mut; }
+.card-padrao { -fx-background-color: -smithe-card; -fx-border-color: -smithe-border; -fx-border-radius: 10; -fx-background-radius: 10; }
+.input-padrao { -fx-background-color: -smithe-card; -fx-border-color: -smithe-border; -fx-text-fill: -smithe-text; }
+
+/* GRAFOS DO MAPA MENTAL */
+.circulo-no { -fx-fill: -smithe-card; -fx-stroke: -smithe-border; }
+.circulo-no-sel { -fx-stroke: #ffb300; }
+.linha-mapa { -fx-stroke: -smithe-border; }
+.list-view, .list-cell, .text-area, .text-area .content {
+    -fx-background-color: -smithe-card;
+    -fx-text-fill: -smithe-text;
+}

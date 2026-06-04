@@ -51,4 +51,10 @@ public class EstatisticaDesempenho extends Estatistica {
     public int getTotalBazingas(){
         return Bazingastotais;
     }
+    public void adicionarPontosBazinga(int pontos) {
+        this.Bazingastotais += pontos;
+    }
+    public int getNivel() {
+        return 1 + (this.Bazingastotais / 100);
+    }
 }

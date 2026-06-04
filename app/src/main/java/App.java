@@ -1,13 +1,13 @@
+import GUI.TelaPrincipal;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import logica.GerenciadorDeRevisao;
+import modelo.EstatisticaDesempenho;
 import save.JSON;
 import save.JSON_Estatistica;
-import modelo.EstatisticaDesempenho;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 
 public class App extends Application {
     private GerenciadorDeRevisao gerenciador;
@@ -29,11 +29,17 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primary){
-        /*Arquivo fxml */
+    public void start(Stage primary) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/TelaPrincipal.fxml"));
+        Parent root = loader.load();
+        TelaPrincipal controller = loader.getController();
+        controller.setGerenciador(gerenciador);
+        controller.setEstatisticas(estatisticas);
+
         Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("/smithe.css").toExternalForm());
         primary.setTitle("SMITHE - Sistema de Estudos");
-        primary.newScene(scene);
+        primary.setScene(scene);
         primary.show();
     }
 

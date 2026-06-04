@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="MapaMentalController">
+   <children>
+      <VBox style="-fx-padding: 15;" spacing="10">
+         <children>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <children>
+                  <Label text="MAPAS MENTAIS" textFill="#2c3e50"><font><Font name="System Bold" size="16.0" /></font></Label>
+                  <Separator orientation="VERTICAL" />
+                  <TextField fx:id="txtTituloMapa" placeholder="Título do Mapa" />
+                  <TextField fx:id="txtDiscMapa" placeholder="Disciplina" />
+                  <Button onAction="#criarNovoMapa" text="Criar Raiz" />
+               </children>
+            </HBox>
+            
+            <Pane fx:id="paneDesenho" VBox.vgrow="ALWAYS" style="-fx-background-color: #f8f9fa; -fx-border-color: #dcdde1; -fx-border-radius: 5;" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>
