@@ -48,9 +48,9 @@ public class MapaMentalController {
     private Map<MapNode, StackPane> nodeViews = new HashMap<>();
     private StackPane viewSelecionada = null;
     
-    private final String COR_BORDA = "#2d3d2a";
-    private final String COR_SEL = "#8fd685";
-    private final String COR_FUNDO = "#1a2318";
+    private final String COR_BORDA = "#81c784"; // Verde médio
+    private final String COR_SEL = "#2e7d32";   // Verde escuro intenso ao selecionar
+    private final String COR_FUNDO = "#ffffff"; // Bolinha branca limpa
 
     public void setGerenciador(GerenciadorDeRevisao gerenciador) {
         this.gerenciadorRevisao = gerenciador;
@@ -67,13 +67,14 @@ public class MapaMentalController {
                 VBox card = new VBox(5);
                 card.setAlignment(Pos.CENTER);
                 card.setPadding(new Insets(15));
-                card.setStyle("-fx-background-color: #1a2318; -fx-border-color: #4a7c45; -fx-border-radius: 10; -fx-background-radius: 10; -fx-cursor: hand;");
+               card.setStyle("-fx-background-color: white; -fx-border-color: #a5d6a7; -fx-border-radius: 10; -fx-background-radius: 10; -fx-cursor: hand;");
                 card.setPrefSize(160, 110);
-                
-                Label lblDisc = new Label(mapa.getDisciplina());
-                lblDisc.setStyle("-fx-text-fill: #c8e6c4; -fx-font-weight: bold; -fx-font-size: 14px;");
+    
+                 Label lblDisc = new Label(mapa.getDisciplina());
+                lblDisc.setStyle("-fx-text-fill: #1b5e20; -fx-font-weight: bold; -fx-font-size: 14px;");
+    
                 Label lblTopicos = new Label(contarTopicos(mapa.getRoot()) + " tópicos");
-                lblTopicos.setStyle("-fx-text-fill: #6a8a66; -fx-font-size: 11px;");
+                lblTopicos.setStyle("-fx-text-fill: #388e3c; -fx-font-size: 11px;");
                 
                 card.getChildren().addAll(lblDisc, lblTopicos);
                 card.setOnMouseClicked(e -> abrirMapa(mapa));
@@ -222,12 +223,14 @@ public class MapaMentalController {
         circulo.setStrokeWidth(isRaiz ? 3 : 1.5);
 
         Label lbl = new Label(no.getName()); 
-        lbl.setTextFill(Color.WHITE);
+        lbl.setTextFill(Color.web("#1b5e20")); // <- MUDE AQUI PARA #1b5e20 (Verde Escuro)
         lbl.setWrapText(true);
         lbl.setMaxWidth(isRaiz ? 85 : 60);
         lbl.setAlignment(Pos.CENTER);
         
-        if (isRaiz) lbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #c8e6c4; -fx-font-size: 13px;");
+        if (isRaiz) {
+            lbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #1b5e20; -fx-font-size: 13px;"); // <- MUDE AQUI TAMBÉM
+        }
 
         view.getChildren().addAll(circulo, lbl);
         view.setLayoutX(x - raio);
