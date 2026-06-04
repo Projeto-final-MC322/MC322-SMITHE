@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<StackPane
+    prefHeight="600.0" prefWidth="720.0"
+    style="-fx-background-color: #131f11;"
+    xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://github.com/fxml/1"
+    fx:controller="GUI.MapaMentalController">
+    <children>
+        <VBox spacing="0" style="-fx-padding: 40; -fx-background-color: #131f11;">
+            <children>
+                <VBox spacing="4" style="-fx-padding: 0 0 24 0;">
+                    <children>
+                        <Label text="VISUALIZAÇÃO" style="-fx-text-fill: #4f6b4c; -fx-font-size: 11px;" />
+                        <Label text="Mapas mentais" style="-fx-text-fill: #c8e6c4; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                    </children>
+                </VBox>
+                <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
+                    <children>
+                        <TextField fx:id="txtTituloMapa" promptText="Título do mapa" prefWidth="200"
+                            style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
+                                   -fx-border-color: #2d3d2a; -fx-border-radius: 8;
+                                   -fx-background-radius: 8; -fx-padding: 9 14;
+                                   -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
+                        <TextField fx:id="txtDiscMapa" promptText="Disciplina" prefWidth="160"
+                            style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
+                                   -fx-border-color: #2d3d2a; -fx-border-radius: 8;
+                                   -fx-background-radius: 8; -fx-padding: 9 14;
+                                   -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
+                        <Button text="+ Criar Raiz" onAction="#criarNovoMapa" prefHeight="38"
+                            style="-fx-background-color: #4a7c45; -fx-text-fill: #e8f5e4;
+                                   -fx-font-size: 13px; -fx-font-weight: bold;
+                                   -fx-background-radius: 8; -fx-cursor: hand;
+                                   -fx-border-width: 0; -fx-padding: 0 18;" />
+                    </children>
+                </HBox>
+                <Pane fx:id="paneDesenho" VBox.vgrow="ALWAYS" prefHeight="380"
+                    style="-fx-background-color: #0f1a0e;
+                           -fx-border-color: #2d3d2a;
+                           -fx-border-radius: 12;
+                           -fx-background-radius: 12;" />
+            </children>
+        </VBox>
+    </children>
+</StackPane>

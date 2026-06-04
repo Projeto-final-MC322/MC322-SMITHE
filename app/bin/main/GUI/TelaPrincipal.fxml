@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.TelaPrincipal">
+   <left>
+      <VBox prefHeight="600.0" prefWidth="200.0" spacing="15.0" style="-fx-background-color: #2c3e50; -fx-padding: 20;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="SMITHE" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirFlashcards" text="Flashcards" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirMapasMentais" text="Mapas Mentais" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirResumos" text="Resumos" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirPomodoro" text="Pomodoro" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="Conteudo" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

@@ -16,7 +16,6 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
         super(titulo, disciplina);
         this.frente = frente;
         this.verso = verso;
-        this.facilidade = 100;
 
         this.repeticoes = 0;
         this.facilidade = 2.5;

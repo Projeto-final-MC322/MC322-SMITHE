@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane
+    prefHeight="600.0" prefWidth="720.0"
+    style="-fx-background-color: #131f11;"
+    xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://github.com/fxml/1"
+    fx:controller="GUI.PomodoroController">
+    <children>
+        <VBox alignment="CENTER" spacing="0" style="-fx-padding: 40;">
+            <children>
+
+                <!-- Cabeçalho -->
+                <VBox alignment="CENTER" spacing="4" style="-fx-padding: 0 0 32 0;">
+                    <children>
+                        <Label
+                            text="CRONÔMETRO POMODORO"
+                            style="-fx-text-fill: #4f6b4c; -fx-font-size: 11px; -fx-font-family: 'System';" />
+                        <Label
+                            text="Foco total. Um bloco de cada vez."
+                            style="-fx-text-fill: #c8e6c4; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                    </children>
+                </VBox>
+
+                <!-- Card principal do timer -->
+                <VBox
+                    alignment="CENTER" spacing="8"
+                    maxWidth="380"
+                    style="-fx-background-color: #1a2318; -fx-background-radius: 20;
+                           -fx-border-color: #2d3d2a; -fx-border-radius: 20;
+                           -fx-padding: 40 60 36 60;">
+                    <children>
+
+                        <!-- Tipo da sessão -->
+                        <HBox alignment="CENTER" spacing="0">
+                            <children>
+                                <Label
+                                    fx:id="lblTipoSessao"
+                                    text="● SESSÃO DE FOCO"
+                                    style="-fx-text-fill: #8fd685; -fx-font-size: 11px; -fx-font-family: 'System';" />
+                            </children>
+                        </HBox>
+
+                        <!-- Número do timer -->
+                        <Label
+                            fx:id="lblTempo"
+                            text="25:00"
+                            style="-fx-text-fill: #8fd685; -fx-font-size: 72px; -fx-font-weight: bold;
+                                   -fx-font-family: 'System';" />
+
+                        <!-- Barra de progresso -->
+                        <ProgressBar
+                            fx:id="progressTimer"
+                            prefWidth="200" prefHeight="4"
+                            progress="0"
+                            style="-fx-accent: #4a7c45; -fx-control-inner-background: #2d3d2a;
+                                   -fx-background-radius: 4; -fx-border-radius: 4;" />
+
+                        <!-- Label de sessões concluídas -->
+                        <Label
+                            fx:id="lblSessoes"
+                            text="Sessões concluídas: 0"
+                            style="-fx-text-fill: #4f6b4c; -fx-font-size: 12px; -fx-padding: 6 0 0 0;" />
+
+                        <!-- Botões -->
+                        <HBox alignment="CENTER" spacing="12" style="-fx-padding: 16 0 0 0;">
+                            <children>
+                                <Button
+                                    fx:id="btnIniciar"
+                                    text="Iniciar"
+                                    onAction="#cliqueIniciar"
+                                    prefHeight="40" prefWidth="110"
+                                    style="-fx-background-color: #4a7c45; -fx-text-fill: #e8f5e4;
+                                           -fx-font-size: 14px; -fx-font-weight: bold;
+                                           -fx-background-radius: 10; -fx-cursor: hand;
+                                           -fx-border-width: 0;" />
+                                <Button
+                                    fx:id="btnPausar"
+                                    text="Pausar"
+                                    onAction="#cliquePausar"
+                                    prefHeight="40" prefWidth="110"
+                                    style="-fx-background-color: #1e2e1b; -fx-text-fill: #6a8a66;
+                                           -fx-font-size: 14px; -fx-background-radius: 10;
+                                           -fx-border-color: #2d3d2a; -fx-border-radius: 10;
+                                           -fx-cursor: hand;" />
+                            </children>
+                        </HBox>
+
+                    </children>
+                </VBox>
+
+                <!-- Dica de uso -->
+                <Label
+                    text="💡 Clique em Iniciar e mantenha o foco por 25 minutos"
+                    style="-fx-text-fill: #2d3d2a; -fx-font-size: 12px; -fx-padding: 24 0 0 0;" />
+
+            </children>
+        </VBox>
+    </children>
+</StackPane>

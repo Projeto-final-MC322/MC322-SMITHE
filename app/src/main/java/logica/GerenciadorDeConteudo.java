@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import save.Armazenamento;
+import java.util.Map;
 
 import modelo.MaterialDeEstudo;
 
@@ -24,7 +25,7 @@ public class GerenciadorDeConteudo {
     public void listarMateriais(){
         System.out.println("\n--- SUA FORTALEZA DO CONHECIMENTO ---");
         int contador = 1;
-        for(Map.Entry<String, List<MaterialDeEstudo>> input : materiais_das_disciplinas.entrySet()){
+        for(Map.Entry<String, List<MaterialDeEstudo>> entrada : materiais_das_disciplinas.entrySet()){
             System.out.println("Disciplina: " + entrada.getKey());
             for(MaterialDeEstudo mat : entrada.getValue()){
                 System.out.println(" " + contador + " - " +  mat.getTitulo());
@@ -36,7 +37,7 @@ public class GerenciadorDeConteudo {
     public List<MaterialDeEstudo>   obterTodososMateriais(){
         List<MaterialDeEstudo> todos = new ArrayList<>();
         for(List<MaterialDeEstudo> lista : materiais_das_disciplinas.values()){
-            all.addAll(lista);
+            todos.addAll(lista);
         }
         return todos;
     }

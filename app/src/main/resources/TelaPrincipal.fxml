@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane
+    prefWidth="900.0"
+    prefHeight="600.0"
+    style="-fx-background-color: #131f11;"
+    xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://github.com/fxml/1"
+    fx:controller="GUI.TelaPrincipal">
+
+    <!-- ═══════════════════════════════════
+         SIDEBAR ESQUERDA
+    ═══════════════════════════════════ -->
+    <left>
+        <VBox
+            prefWidth="180.0"
+            style="-fx-background-color: #0f1a0e; -fx-border-color: #2d3d2a; -fx-border-width: 0 1 0 0;">
+
+            <!-- Logo -->
+            <VBox
+                alignment="CENTER_LEFT"
+                style="-fx-padding: 24 16 20 16; -fx-border-color: #2d3d2a; -fx-border-width: 0 0 1 0;">
+                <children>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <children>
+                            <StackPane
+                                prefWidth="36" prefHeight="36"
+                                style="-fx-background-color: #4a7c45; -fx-background-radius: 50;">
+                                <children>
+                                    <Label text="SM" style="-fx-text-fill: #e8f5e4; -fx-font-weight: bold; -fx-font-size: 11px;" />
+                                </children>
+                            </StackPane>
+                            <Label
+                                text="SMITHE"
+                                style="-fx-text-fill: #c8e6c4; -fx-font-weight: bold; -fx-font-size: 15px; -fx-font-family: 'System';" />
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+
+            <!-- Espaço superior -->
+            <Region prefHeight="16" />
+
+            <!-- Label seção -->
+            <Label
+                text="MENU"
+                style="-fx-text-fill: #4f6b4c; -fx-font-size: 10px; -fx-padding: 0 0 6 16; -fx-font-family: 'System';" />
+
+            <!-- Botão Pomodoro -->
+            <Button
+                fx:id="btnPomodoro"
+                text="⏱  Pomodoro"
+                maxWidth="Infinity"
+                onAction="#abrirPomodoro"
+                style="-fx-background-color: #4a7c45; -fx-text-fill: #e8f5e4; -fx-font-size: 13px;
+                       -fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-padding: 10 16;
+                       -fx-background-radius: 8; -fx-cursor: hand; -fx-border-width: 0;
+                       -fx-margin: 2 10 2 10;">
+                <VBox.margin>
+                    <Insets top="2" right="12" bottom="2" left="12" />
+                </VBox.margin>
+            </Button>
+
+            <!-- Botão Flashcards -->
+            <Button
+                fx:id="btnFlashcards"
+                text="🃏  Flashcards"
+                maxWidth="Infinity"
+                onAction="#abrirFlashcards"
+                style="-fx-background-color: transparent; -fx-text-fill: #6a8a66; -fx-font-size: 13px;
+                       -fx-alignment: CENTER_LEFT; -fx-padding: 10 16;
+                       -fx-background-radius: 8; -fx-cursor: hand; -fx-border-width: 0;">
+                <VBox.margin>
+                    <Insets top="2" right="12" bottom="2" left="12" />
+                </VBox.margin>
+            </Button>
+
+            <!-- Botão Resumos -->
+            <Button
+                fx:id="btnResumos"
+                text="📝  Resumos"
+                maxWidth="Infinity"
+                onAction="#abrirResumos"
+                style="-fx-background-color: transparent; -fx-text-fill: #6a8a66; -fx-font-size: 13px;
+                       -fx-alignment: CENTER_LEFT; -fx-padding: 10 16;
+                       -fx-background-radius: 8; -fx-cursor: hand; -fx-border-width: 0;">
+                <VBox.margin>
+                    <Insets top="2" right="12" bottom="2" left="12" />
+                </VBox.margin>
+            </Button>
+
+            <!-- Botão Mapas Mentais -->
+            <Button
+                fx:id="btnMapas"
+                text="🧠  Mapas Mentais"
+                maxWidth="Infinity"
+                onAction="#abrirMapasMentais"
+                style="-fx-background-color: transparent; -fx-text-fill: #6a8a66; -fx-font-size: 13px;
+                       -fx-alignment: CENTER_LEFT; -fx-padding: 10 16;
+                       -fx-background-radius: 8; -fx-cursor: hand; -fx-border-width: 0;">
+                <VBox.margin>
+                    <Insets top="2" right="12" bottom="2" left="12" />
+                </VBox.margin>
+            </Button>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Rodapé da sidebar -->
+            <Label
+                text="v1.0 · SMITHE Study"
+                style="-fx-text-fill: #2d3d2a; -fx-font-size: 10px; -fx-padding: 12 16;">
+            </Label>
+        </VBox>
+    </left>
+
+    <!-- ═══════════════════════════════════
+         ÁREA DE CONTEÚDO CENTRAL
+    ═══════════════════════════════════ -->
+    <center>
+        <StackPane fx:id="Conteudo" style="-fx-background-color: #131f11;" />
+    </center>
+
+</BorderPane>

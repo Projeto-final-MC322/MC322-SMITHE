@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="ResumoController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" style="-fx-padding: 20;">
+         <children>
+            <Label text="CRIAR NOVO RESUMO" textFill="#2c3e50">
+               <font><Font name="System Bold" size="18.0" /></font>
+            </Label>
+            <TextField fx:id="txtTitulo" placeholder="Título do Resumo" />
+            <TextField fx:id="txtDisciplina" placeholder="Disciplina" />
+            <TextArea fx:id="txtConteudo" prefHeight="300.0" prefWidth="560.0" placeholder="Escreva o seu resumo aqui..." wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#salvarEExportar" prefHeight="40.0" prefWidth="200.0" text="Salvar e Exportar .TXT" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>

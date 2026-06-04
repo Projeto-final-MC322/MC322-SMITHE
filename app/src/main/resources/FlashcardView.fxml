@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<StackPane
+    prefHeight="600.0" prefWidth="720.0"
+    style="-fx-background-color: #131f11;"
+    xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://github.com/fxml/1"
+    fx:controller="GUI.FlashcardController">
+    <children>
+
+        <TabPane
+            tabClosingPolicy="UNAVAILABLE"
+            style="-fx-background-color: #131f11;
+                   -fx-tab-min-height: 40px;
+                   -fx-tab-max-height: 40px;">
+            <tabs>
+
+                <!-- ═══════════════════════════
+                     ABA 1 — ESTUDAR HOJE
+                ═══════════════════════════ -->
+                <Tab text="  Estudar Hoje  ">
+                    <content>
+                        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40; -fx-background-color: #131f11;">
+                            <children>
+
+                                <!-- Cabeçalho -->
+                                <VBox alignment="CENTER" spacing="4">
+                                    <children>
+                                        <Label
+                                            text="REVISÃO ESPAÇADA"
+                                            style="-fx-text-fill: #4f6b4c; -fx-font-size: 11px;" />
+                                        <Label
+                                            fx:id="lblContador"
+                                            text="Cartões restantes: 0"
+                                            style="-fx-text-fill: #c8e6c4; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Card do flashcard (clicável) -->
+                                <VBox
+                                    fx:id="boxCartao"
+                                    alignment="CENTER"
+                                    onMouseClicked="#virarCartao"
+                                    prefHeight="200" prefWidth="480"
+                                    style="-fx-background-color: #1a2318;
+                                           -fx-border-color: #4a7c45;
+                                           -fx-border-width: 1.5;
+                                           -fx-border-radius: 16;
+                                           -fx-background-radius: 16;
+                                           -fx-padding: 30;
+                                           -fx-cursor: hand;">
+                                    <children>
+                                        <Label
+                                            fx:id="lblTextoCard"
+                                            text="Clique em 'Iniciar' para começar"
+                                            textAlignment="CENTER"
+                                            wrapText="true"
+                                            style="-fx-text-fill: #c8e6c4; -fx-font-size: 18px; -fx-font-weight: bold;">
+                                        </Label>
+                                        <Label
+                                            text="(clique no cartão para revelar)"
+                                            style="-fx-text-fill: #2d3d2a; -fx-font-size: 11px; -fx-padding: 10 0 0 0;" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Botão iniciar -->
+                                <Button
+                                    fx:id="btnIniciar"
+                                    text="Iniciar Sessão"
+                                    onAction="#iniciarEstudo"
+                                    prefHeight="42" prefWidth="180"
+                                    style="-fx-background-color: #4a7c45; -fx-text-fill: #e8f5e4;
+                                           -fx-font-size: 14px; -fx-font-weight: bold;
+                                           -fx-background-radius: 10; -fx-cursor: hand;
+                                           -fx-border-width: 0;" />
+
+                                <!-- Notas de avaliação -->
+                                <VBox alignment="CENTER" spacing="8">
+                                    <children>
+                                        <Label
+                                            text="Como você se saiu?"
+                                            style="-fx-text-fill: #4f6b4c; -fx-font-size: 12px;" />
+                                        <HBox
+                                            fx:id="boxNotas"
+                                            alignment="CENTER"
+                                            spacing="10"
+                                            visible="false">
+                                            <children>
+                                                <Button
+                                                    onAction="#darNota1" text="1  ❌"
+                                                    prefHeight="38" prefWidth="72"
+                                                    style="-fx-background-color: #2d1a1a; -fx-text-fill: #e88; -fx-font-size: 13px;
+                                                           -fx-background-radius: 9; -fx-border-color: #4a2a2a; -fx-border-radius: 9; -fx-cursor: hand;" />
+                                                <Button
+                                                    onAction="#darNota2" text="2  ⏳"
+                                                    prefHeight="38" prefWidth="72"
+                                                    style="-fx-background-color: #2a2214; -fx-text-fill: #c8a84b; -fx-font-size: 13px;
+                                                           -fx-background-radius: 9; -fx-border-color: #3d3018; -fx-border-radius: 9; -fx-cursor: hand;" />
+                                                <Button
+                                                    onAction="#darNota3" text="3  ☕"
+                                                    prefHeight="38" prefWidth="72"
+                                                    style="-fx-background-color: #1e2318; -fx-text-fill: #8aad84; -fx-font-size: 13px;
+                                                           -fx-background-radius: 9; -fx-border-color: #2d3d2a; -fx-border-radius: 9; -fx-cursor: hand;" />
+                                                <Button
+                                                    onAction="#darNota4" text="4  👍"
+                                                    prefHeight="38" prefWidth="72"
+                                                    style="-fx-background-color: #1a2a18; -fx-text-fill: #8fd685; -fx-font-size: 13px;
+                                                           -fx-background-radius: 9; -fx-border-color: #2d4a29; -fx-border-radius: 9; -fx-cursor: hand;" />
+                                                <Button
+                                                    onAction="#darNota5" text="5  🔥"
+                                                    prefHeight="38" prefWidth="72"
+                                                    style="-fx-background-color: #1e2e1b; -fx-text-fill: #8fd685; -fx-font-size: 13px;
+                                                           -fx-font-weight: bold;
+                                                           -fx-background-radius: 9; -fx-border-color: #4a7c45; -fx-border-radius: 9; -fx-cursor: hand;" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- ═══════════════════════════
+                     ABA 2 — NOVO FLASHCARD
+                ═══════════════════════════ -->
+                <Tab text="  Novo Flashcard  ">
+                    <content>
+                        <VBox spacing="0" style="-fx-padding: 40; -fx-background-color: #131f11;">
+                            <children>
+
+                                <!-- Cabeçalho -->
+                                <VBox spacing="4" style="-fx-padding: 0 0 28 0;">
+                                    <children>
+                                        <Label
+                                            text="CRIAR CARTÃO"
+                                            style="-fx-text-fill: #4f6b4c; -fx-font-size: 11px;" />
+                                        <Label
+                                            text="Adicionar novo flashcard"
+                                            style="-fx-text-fill: #c8e6c4; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Formulário -->
+                                <VBox spacing="14" maxWidth="460">
+                                    <children>
+
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Título" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
+                                                <TextField
+                                                    fx:id="txtRegTitulo"
+                                                    promptText="Ex: Algoritmos de Busca"
+                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
+                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
+                                                           -fx-background-radius: 8; -fx-padding: 10 14;
+                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Disciplina" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
+                                                <TextField
+                                                    fx:id="txtRegDisciplina"
+                                                    promptText="Ex: Computação, Unicamp"
+                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
+                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
+                                                           -fx-background-radius: 8; -fx-padding: 10 14;
+                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Pergunta (Frente)" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
+                                                <TextField
+                                                    fx:id="txtRegFrente"
+                                                    promptText="O que você quer perguntar?"
+                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
+                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
+                                                           -fx-background-radius: 8; -fx-padding: 10 14;
+                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="5">
+                                            <children>
+                                                <Label text="Resposta (Verso)" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
+                                                <TextField
+                                                    fx:id="txtRegVerso"
+                                                    promptText="Qual é a resposta?"
+                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
+                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
+                                                           -fx-background-radius: 8; -fx-padding: 10 14;
+                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
+                                            </children>
+                                        </VBox>
+
+                                        <Button
+                                            text="Salvar Flashcard"
+                                            onAction="#cadastrarNovoCard"
+                                            prefHeight="42" prefWidth="200"
+                                            style="-fx-background-color: #4a7c45; -fx-text-fill: #e8f5e4;
+                                                   -fx-font-size: 14px; -fx-font-weight: bold;
+                                                   -fx-background-radius: 10; -fx-cursor: hand;
+                                                   -fx-border-width: 0;">
+                                            <VBox.margin><Insets top="6" /></VBox.margin>
+                                        </Button>
+
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+
+    </children>
+</StackPane>
