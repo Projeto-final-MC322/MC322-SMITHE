@@ -13,10 +13,11 @@ import modelo.EstatisticaDesempenho;
 public class TelaPrincipal {
     @FXML private BorderPane painelPrincipal;
     @FXML private StackPane Conteudo;
-    @FXML private Label lblNivel; // Mostrador de pontos
+    @FXML private Label lblNivel;
 
     private GerenciadorDeRevisao gerenciador;
     private EstatisticaDesempenho estatisticas;
+    private boolean modoEscuro = false;
 
     public void setGerenciador(GerenciadorDeRevisao gerenciador){ this.gerenciador = gerenciador; }
 
@@ -25,10 +26,19 @@ public class TelaPrincipal {
         atualizarNivel();
     }
 
-
     public void atualizarNivel() {
         if(lblNivel != null && estatisticas != null) {
             lblNivel.setText("Nível " + estatisticas.getNivel() + " | " + estatisticas.getTotalBazingas() + " BZ");
+        }
+    }
+
+    @FXML
+    public void alternarTema() {
+        modoEscuro = !modoEscuro;
+        if (modoEscuro) {
+            painelPrincipal.getScene().getRoot().getStyleClass().add("dark-theme");
+        } else {
+            painelPrincipal.getScene().getRoot().getStyleClass().remove("dark-theme");
         }
     }
 
@@ -36,17 +46,14 @@ public class TelaPrincipal {
     @FXML public void abrirFlashcards() { carregarTela("FlashcardView.fxml"); }
     @FXML public void abrirResumos() { carregarTela("ResumoView.fxml"); }
     @FXML public void abrirMapasMentais() { carregarTela("MapaMentalView.fxml"); }
-    @FXML public void abrirRevisoes() { carregarTela("RevisoesView.fxml"); } // Nova tela!
+    @FXML public void abrirRevisoes() { carregarTela("RevisoesView.fxml"); }
 
     private void carregarTela(String arquivoFxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + arquivoFxml));
-
-            Parent novaTela = loader.load(); 
-
-            Object controlador = loader.getController();
+            Parent novaTela = loader.load(); // CORREÇÃO FATAL: Parent aceita qualquer ecrã!
             
-            // Injeta o gerenciador e a própria tela principal para atualizar pontos
+            Object controlador = loader.getController();
             if(controlador instanceof FlashcardController) {
                 ((FlashcardController) controlador).setGerenciador(this.gerenciador);
                 ((FlashcardController) controlador).setEstatisticas(this.estatisticas, this);
