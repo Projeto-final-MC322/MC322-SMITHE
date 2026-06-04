@@ -1,13 +1,14 @@
 package modelo;
 public class Pomodoro implements Timer {
+    
     private int minutos;
     private boolean emExecucao;
-
 
     public Pomodoro(){
         this.minutos = 25;
         this.emExecucao = false;
     }
+
     @Override
     public void iniciarTimer(){
         if(!this.emExecucao){
@@ -18,6 +19,7 @@ public class Pomodoro implements Timer {
             System.out.println("Timer já em execução!");
         }
     }
+
     public void pausarTimer(){
         if(this.emExecucao){
             this.emExecucao = false;
@@ -26,12 +28,14 @@ public class Pomodoro implements Timer {
             System.out.println("Não é possível pausar um timer que não foi iniciado.");
         }
     }
+    
     public int getMinutos(){
         return this.minutos;
     }
     public void setMinutos(int minutos){
         this.minutos = minutos;
     }
+
     public boolean isemExecucao(){
         return this.emExecucao;
     }
