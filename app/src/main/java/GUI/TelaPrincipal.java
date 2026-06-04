@@ -1,7 +1,9 @@
 package GUI;
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -39,7 +41,9 @@ public class TelaPrincipal {
     private void carregarTela(String arquivoFxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + arquivoFxml));
-            StackPane novaTela = loader.load();
+
+            Parent novaTela = loader.load(); 
+
             Object controlador = loader.getController();
             
             // Injeta o gerenciador e a própria tela principal para atualizar pontos

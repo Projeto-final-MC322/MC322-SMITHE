@@ -31,7 +31,7 @@ public class MapaMentalController {
     @FXML private TextField txtNovaDisciplina;
     @FXML private TextField txtNovoTitulo;
 
-    @FXML private VBox telaMapa;
+    @FXML private StackPane telaMapa;
     @FXML private Label lblTituloMapaAberto;
     @FXML private Pane paneDesenho;
     @FXML private TextField txtNovoTopico;

@@ -5,7 +5,7 @@
 
 <StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.RevisoesController">
     <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
-        <image><Image url="@/logo.png" /></image>
+        <image><Image url="@logo.png" /></image>
     </ImageView>
     <VBox spacing="20" style="-fx-padding: 30;">
         <Label text="📅 Revisões Programadas para Hoje" style="-fx-text-fill: #1b5e20; -fx-font-size: 22px; -fx-font-weight: bold;" />

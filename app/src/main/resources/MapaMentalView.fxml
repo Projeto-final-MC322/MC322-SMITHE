@@ -6,7 +6,7 @@
 
 <StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.MapaMentalController">
 <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
-        <image><Image url="@/logo.png" /></image>
+        <image><Image url="@logo.png" /></image>
     </ImageView>
     <children>
         <VBox fx:id="telaListagem" spacing="20" style="-fx-padding: 30; -fx-background-color: #f1f8e9;">
@@ -29,7 +29,7 @@
             
             <ImageView fitWidth="500" preserveRatio="true" opacity="0.1" StackPane.alignment="CENTER">
                 <image>
-                    <Image url="@/logo.png" />
+                    <Image url="@logo.png" />
                 </image>
             </ImageView>
 

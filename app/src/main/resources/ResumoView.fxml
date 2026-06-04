@@ -11,7 +11,7 @@
     xmlns:fx="http://github.com/fxml/1"
     fx:controller="GUI.ResumoController">
     <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
-        <image><Image url="@/logo.png" /></image>
+        <image><Image url="@logo.png" /></image>
     </ImageView>
     <children>
         <VBox spacing="0" style="-fx-padding: 40; -fx-background-color: #131f11;">
