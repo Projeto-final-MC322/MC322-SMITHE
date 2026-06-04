@@ -36,3 +36,7 @@
 .circulo-no { -fx-fill: -smithe-card; -fx-stroke: -smithe-border; }
 .circulo-no-sel { -fx-stroke: #ffb300; }
 .linha-mapa { -fx-stroke: -smithe-border; }
+.list-view, .list-cell, .text-area, .text-area .content {
+    -fx-background-color: -smithe-card;
+    -fx-text-fill: -smithe-text;
+}

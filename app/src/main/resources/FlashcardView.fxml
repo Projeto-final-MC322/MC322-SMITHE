@@ -3,34 +3,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
 
 <StackPane
     prefHeight="600.0" prefWidth="720.0"
-    style="-fx-background-color: #f1f8e9;"
+    styleClass="fundo-padrao"
     xmlns="http://javafx.com/javafx/17"
     xmlns:fx="http://github.com/fxml/1"
     fx:controller="GUI.FlashcardController">
+    
     <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
-        <image><Image url="@logo.png" /></image>
+        <image><Image url="/logo.png" /></image>
     </ImageView>
+    
     <children>
-
         <TabPane
             tabClosingPolicy="UNAVAILABLE"
-            style="-fx-background-color: #f1f8e9;
-                   -fx-tab-min-height: 40px;
-                   -fx-tab-max-height: 40px;">
+            styleClass="fundo-padrao"
+            style="-fx-tab-min-height: 40px; -fx-tab-max-height: 40px;">
             <tabs>
 
-                <!-- ═══════════════════════════
-                     ABA 1 — ESTUDAR HOJE
-                ═══════════════════════════ -->
                 <Tab text="  Estudar Hoje  ">
                     <content>
-                        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40; -fx-background-color: #131f11;">
+                        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40; -fx-background-color: transparent;">
                             <children>
 
-                                <!-- Cabeçalho -->
                                 <VBox alignment="CENTER" spacing="4">
                                     <children>
                                         <Label
@@ -43,7 +40,6 @@
                                     </children>
                                 </VBox>
 
-                                <!-- Card do flashcard (clicável) -->
                                 <VBox
                                     fx:id="boxCartao"
                                     alignment="CENTER"
@@ -70,7 +66,6 @@
                                     </children>
                                 </VBox>
 
-                                <!-- Botão iniciar -->
                                 <Button
                                     fx:id="btnIniciar"
                                     text="Iniciar Sessão"
@@ -81,7 +76,6 @@
                                            -fx-background-radius: 10; -fx-cursor: hand;
                                            -fx-border-width: 0;" />
 
-                                <!-- Notas de avaliação -->
                                 <VBox alignment="CENTER" spacing="8">
                                     <children>
                                         <Label
@@ -116,116 +110,4 @@
                                                 <Button
                                                     onAction="#darNota5" text="5  🔥"
                                                     prefHeight="38" prefWidth="72"
-                                                    style="-fx-background-color: #1e2e1b; -fx-text-fill: #8fd685; -fx-font-size: 13px;
-                                                           -fx-font-weight: bold;
-                                                           -fx-background-radius: 9; -fx-border-color: #4a7c45; -fx-border-radius: 9; -fx-cursor: hand;" />
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </content>
-                </Tab>
-
-                <!-- ═══════════════════════════
-                     ABA 2 — NOVO FLASHCARD
-                ═══════════════════════════ -->
-                <Tab text="  Novo Flashcard  ">
-                    <content>
-                        <VBox spacing="0" style="-fx-padding: 40; -fx-background-color: #131f11;">
-                            <children>
-
-                                <!-- Cabeçalho -->
-                                <VBox spacing="4" style="-fx-padding: 0 0 28 0;">
-                                    <children>
-                                        <Label
-                                            text="CRIAR CARTÃO"
-                                            style="-fx-text-fill: #4f6b4c; -fx-font-size: 11px;" />
-                                        <Label
-                                            text="Adicionar novo flashcard"
-                                            style="-fx-text-fill: #c8e6c4; -fx-font-size: 20px; -fx-font-weight: bold;" />
-                                    </children>
-                                </VBox>
-
-                                <!-- Formulário -->
-                                <VBox spacing="14" maxWidth="460">
-                                    <children>
-
-                                        <VBox spacing="5">
-                                            <children>
-                                                <Label text="Título" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
-                                                <TextField
-                                                    fx:id="txtRegTitulo"
-                                                    promptText="Ex: Algoritmos de Busca"
-                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
-                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
-                                                           -fx-background-radius: 8; -fx-padding: 10 14;
-                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
-                                            </children>
-                                        </VBox>
-
-                                        <VBox spacing="5">
-                                            <children>
-                                                <Label text="Disciplina" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
-                                                <TextField
-                                                    fx:id="txtRegDisciplina"
-                                                    promptText="Ex: Computação, Unicamp"
-                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
-                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
-                                                           -fx-background-radius: 8; -fx-padding: 10 14;
-                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
-                                            </children>
-                                        </VBox>
-
-                                        <VBox spacing="5">
-                                            <children>
-                                                <Label text="Pergunta (Frente)" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
-                                                <TextField
-                                                    fx:id="txtRegFrente"
-                                                    promptText="O que você quer perguntar?"
-                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
-                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
-                                                           -fx-background-radius: 8; -fx-padding: 10 14;
-                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
-                                            </children>
-                                        </VBox>
-
-                                        <VBox spacing="5">
-                                            <children>
-                                                <Label text="Resposta (Verso)" style="-fx-text-fill: #6a8a66; -fx-font-size: 12px;" />
-                                                <TextField
-                                                    fx:id="txtRegVerso"
-                                                    promptText="Qual é a resposta?"
-                                                    style="-fx-background-color: #1a2318; -fx-text-fill: #c8e6c4;
-                                                           -fx-border-color: #2d3d2a; -fx-border-radius: 8;
-                                                           -fx-background-radius: 8; -fx-padding: 10 14;
-                                                           -fx-font-size: 13px; -fx-prompt-text-fill: #3d5a3a;" />
-                                            </children>
-                                        </VBox>
-
-                                        <Button
-                                            text="Salvar Flashcard"
-                                            onAction="#cadastrarNovoCard"
-                                            prefHeight="42" prefWidth="200"
-                                            style="-fx-background-color: #4a7c45; -fx-text-fill: #e8f5e4;
-                                                   -fx-font-size: 14px; -fx-font-weight: bold;
-                                                   -fx-background-radius: 10; -fx-cursor: hand;
-                                                   -fx-border-width: 0;">
-                                            <VBox.margin><Insets top="6" /></VBox.margin>
-                                        </Button>
-
-                                    </children>
-                                </VBox>
-
-                            </children>
-                        </VBox>
-                    </content>
-                </Tab>
-
-            </tabs>
-        </TabPane>
-
-    </children>
-</StackPane>
+                                                    style="-fx-background-color: #1e2e1b; -fx-text;" />
