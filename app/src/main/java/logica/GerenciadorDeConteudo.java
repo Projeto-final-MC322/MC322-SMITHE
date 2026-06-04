@@ -10,10 +10,10 @@ import modelo.MaterialDeEstudo;
 import modelo.MentalMap;
 
 public class GerenciadorDeConteudo {
-    private Map<String, List<MaterialDeEstudo>> materiais_das_disciplinas;
+    private Map<String, List<MaterialDeEstudo>> materiais_das_disciplinas = new LinkedHashMap<>();
 
     public GerenciadorDeConteudo() {
-        this.materiais_das_disciplinas = new LinkedHashMap<>();
+        
     }
 
     public void adicionarMaterial(MaterialDeEstudo mat) {

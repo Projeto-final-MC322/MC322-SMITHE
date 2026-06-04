@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.RevisoesController">
+    <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
+        <image><Image url="@/logo.png" /></image>
+    </ImageView>
+    <VBox spacing="20" style="-fx-padding: 30;">
+        <Label text="📅 Revisões Programadas para Hoje" style="-fx-text-fill: #1b5e20; -fx-font-size: 22px; -fx-font-weight: bold;" />
+        <Label text="Ganhe +15 Bazingas por cada Mapa/Resumo revisto!" style="-fx-text-fill: #388e3c; -fx-font-size: 14px;" />
+        <ListView fx:id="listaRevisoes" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: #81c784; -fx-border-radius: 10;" />
+        <Button text="✔ Marcar Selecionado como Revisado (+15 BZ)" onAction="#marcarComoRevisado" maxWidth="Infinity" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12; -fx-cursor: hand;" />
+    </VBox>
+</StackPane>

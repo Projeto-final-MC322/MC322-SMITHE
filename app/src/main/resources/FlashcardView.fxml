@@ -6,15 +6,18 @@
 
 <StackPane
     prefHeight="600.0" prefWidth="720.0"
-    style="-fx-background-color: #131f11;"
+    style="-fx-background-color: #f1f8e9;"
     xmlns="http://javafx.com/javafx/17"
     xmlns:fx="http://github.com/fxml/1"
     fx:controller="GUI.FlashcardController">
+    <ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
+        <image><Image url="@/logo.png" /></image>
+    </ImageView>
     <children>
 
         <TabPane
             tabClosingPolicy="UNAVAILABLE"
-            style="-fx-background-color: #131f11;
+            style="-fx-background-color: #f1f8e9;
                    -fx-tab-min-height: 40px;
                    -fx-tab-max-height: 40px;">
             <tabs>

@@ -5,6 +5,9 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://github.com/fxml/1" fx:controller="GUI.MapaMentalController">
+<ImageView fitWidth="500" preserveRatio="true" opacity="0.08" StackPane.alignment="CENTER">
+        <image><Image url="@/logo.png" /></image>
+    </ImageView>
     <children>
         <VBox fx:id="telaListagem" spacing="20" style="-fx-padding: 30; -fx-background-color: #f1f8e9;">
             <children>
@@ -16,7 +19,7 @@
                 </HBox>
                 <Separator style="-fx-background-color: #a5d6a7;" />
                 
-                <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: #f1f8e9;">
                     <FlowPane fx:id="gridMapas" hgap="15" vgap="15" />
                 </ScrollPane>
             </children>
@@ -44,7 +47,7 @@
 
                 <HBox spacing="15" VBox.vgrow="ALWAYS">
                     <children>
-                        <Pane fx:id="paneDesenho" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: #a5d6a7; -fx-border-radius: 12; -fx-background-radius: 12;" />
+                        <Pane fx:id="paneDesenho" HBox.hgrow="ALWAYS" style="-fx-background-color: #f1f8e9; -fx-border-radius: 12; -fx-background-radius: 12;" />
                         
                         <VBox fx:id="boxEdicao" prefWidth="280" spacing="12" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-border-color: #a5d6a7; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 15;" disable="true">
                             <children>

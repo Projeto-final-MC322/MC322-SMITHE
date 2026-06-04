@@ -9,17 +9,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logica.GerenciadorDeRevisao;
-import modelo.Flashcard;
+import modelo.EstatisticaDesempenho;
+import modelo.Flashcard; // Import adicionado
 
 public class FlashcardController {
-    // Injetados do FXML
     @FXML private Label lblContador, lblTextoCard;
     @FXML private VBox boxCartao;
     @FXML private HBox boxNotas;
     @FXML private Button btnIniciar;
     @FXML private TextField txtRegTitulo, txtRegDisciplina, txtRegFrente, txtRegVerso;
 
-    private GerenciadorDeRevisao gerenciador; // Será injetado pela TelaPrincipal
+    private GerenciadorDeRevisao gerenciador;
+    private EstatisticaDesempenho estatisticas; // Variável adicionada
+    private TelaPrincipal telaPrincipal;        // Variável adicionada
+    
     private List<Flashcard> cardsHoje;
     private Flashcard cardAtual;
     private boolean mostrandoVerso = false;
@@ -27,6 +30,12 @@ public class FlashcardController {
 
     public void setGerenciador(GerenciadorDeRevisao gerenciador) {
         this.gerenciador = gerenciador;
+    }
+
+    // MÉTODO ADICIONADO PARA PARAR O ERRO
+    public void setEstatisticas(EstatisticaDesempenho est, TelaPrincipal tela) {
+        this.estatisticas = est;
+        this.telaPrincipal = tela;
     }
 
     @FXML
@@ -59,11 +68,10 @@ public class FlashcardController {
         if (cardAtual != null && !mostrandoVerso) {
             lblTextoCard.setText(cardAtual.getVerso());
             mostrandoVerso = true;
-            boxNotas.setVisible(true); // Mostra os botões de nota 1 a 5
+            boxNotas.setVisible(true);
         }
     }
 
-    // Métodos das Notas acionando a sua Revisão Espaçada
     @FXML public void darNota1() { processarNota(1); }
     @FXML public void darNota2() { processarNota(2); }
     @FXML public void darNota3() { processarNota(3); }
@@ -72,6 +80,13 @@ public class FlashcardController {
 
     private void processarNota(int nota) {
         gerenciador.avaliaFlashcard(cardAtual, nota);
+        
+        // Atribui pontos ao estudar!
+        if(estatisticas != null) {
+            estatisticas.adicionarPontosBazinga(5); 
+            telaPrincipal.atualizarNivel(); 
+        }
+        
         indexAtual++;
         exibirProximoCard();
     }
@@ -86,7 +101,6 @@ public class FlashcardController {
         if(!t.isEmpty() && !d.isEmpty() && !f.isEmpty() && !v.isEmpty()) {
             gerenciador.criarNovoFlashcard(t, d, f, v);
             txtRegTitulo.clear(); txtRegDisciplina.clear(); txtRegFrente.clear(); txtRegVerso.clear();
-            
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Flashcard criado com sucesso!");
             alert.showAndWait();
         }

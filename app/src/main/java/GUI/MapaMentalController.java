@@ -20,10 +20,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import logica.GerenciadorDeConteudo;
 import logica.GerenciadorDeRevisao;
+import modelo.EstatisticaDesempenho;
 import modelo.MapNode;
 import modelo.MaterialDeEstudo;
 import modelo.MentalMap;
-
 public class MapaMentalController {
 
     @FXML private VBox telaListagem;
@@ -47,6 +47,8 @@ public class MapaMentalController {
     
     private Map<MapNode, StackPane> nodeViews = new HashMap<>();
     private StackPane viewSelecionada = null;
+    private EstatisticaDesempenho estatisticas;
+    private TelaPrincipal telaPrincipal;
     
     private final String COR_BORDA = "#81c784"; // Verde médio
     private final String COR_SEL = "#2e7d32";   // Verde escuro intenso ao selecionar
@@ -55,6 +57,10 @@ public class MapaMentalController {
     public void setGerenciador(GerenciadorDeRevisao gerenciador) {
         this.gerenciadorRevisao = gerenciador;
         carregarListagem();
+    }
+    public void setEstatisticas(EstatisticaDesempenho est, TelaPrincipal tela) {
+        this.estatisticas = est;
+        this.telaPrincipal = tela;
     }
 
     private void carregarListagem() {
