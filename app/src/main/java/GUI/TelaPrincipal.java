@@ -1,11 +1,12 @@
 package GUI;
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.Parent;
 import logica.GerenciadorDeRevisao;
 import modelo.EstatisticaDesempenho;
 
@@ -62,18 +63,21 @@ public class TelaPrincipal {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + arquivoFxml));
                 novaTela = loader.load(); 
                 
-                Object controlador = loader.getController();
-                if(controlador instanceof FlashcardController) {
-                    ((FlashcardController) controlador).setGerenciador(this.gerenciador);
-                    ((FlashcardController) controlador).setEstatisticas(this.estatisticas, this);
-                } else if(controlador instanceof MapaMentalController) {
-                    ((MapaMentalController) controlador).setGerenciador(this.gerenciador);
-                    ((MapaMentalController) controlador).setEstatisticas(this.estatisticas, this);
-                } else if(controlador instanceof RevisoesController) {
-                    ((RevisoesController) controlador).setup(this.gerenciador, this.estatisticas, this);
-                } else if(controlador instanceof PomodoroController) {
-                    ((PomodoroController) controlador).setEstatisticas(this.estatisticas, this);
-                }
+            Object controlador = loader.getController();
+            if(controlador instanceof FlashcardController) {
+                ((FlashcardController) controlador).setGerenciador(this.gerenciador);
+                ((FlashcardController) controlador).setEstatisticas(this.estatisticas, this);
+            } else if(controlador instanceof MapaMentalController) {
+                ((MapaMentalController) controlador).setGerenciador(this.gerenciador);
+                ((MapaMentalController) controlador).setEstatisticas(this.estatisticas, this);
+            } else if(controlador instanceof RevisoesController) {
+                ((RevisoesController) controlador).setup(this.gerenciador, this.estatisticas, this);
+            } else if(controlador instanceof PomodoroController) {
+                ((PomodoroController) controlador).setEstatisticas(this.estatisticas, this);
+            } else if(controlador instanceof ResumoController) {
+                // ESTA É A LINHA NOVA: Liga os pontos Bazinga ao Resumo
+                ((ResumoController) controlador).setEstatisticas(this.estatisticas, this);
+            }
 
                 // Salva a primeira execução do Pomodoro no Cache
                 if (arquivoFxml.equals("PomodoroView.fxml")) {
