@@ -4,17 +4,11 @@ import java.time.LocalDate;
 
 import logica.Revisao_Espacada;
 
-/**
- * Mapa Mental como grafo de conhecimento com revisão espaçada.
- *
- * Estrutura: árvore enraizada de MapNode.
- * Revisão:   algoritmo SM-2 via Revisao_Espacada, igual aos Flashcards.
- */
 public class MentalMap extends MaterialDeEstudo implements Revisar {
 
     private MapNode root;
 
-    // ── Campos da revisão espaçada (SM-2) ────────────────────
+
     private int       repeticoes;
     private double    facilidade;
     private int       intervaloDias;
@@ -30,7 +24,7 @@ public class MentalMap extends MaterialDeEstudo implements Revisar {
         this.dataProximaRevisao  = LocalDate.now();
     }
 
-    // ── Grafo ─────────────────────────────────────────────────
+
 
     public MapNode getRoot() { return root; }
 
@@ -61,7 +55,6 @@ public class MentalMap extends MaterialDeEstudo implements Revisar {
         return false;
     }
 
-    // ── Revisão Espaçada ──────────────────────────────────────
 
     /**
      * Processa uma sessão de revisão do mapa com nota de 1 a 5.
@@ -77,7 +70,7 @@ public class MentalMap extends MaterialDeEstudo implements Revisar {
         return !dataProximaRevisao.isAfter(LocalDate.now());
     }
 
-    // ── MaterialDeEstudo ──────────────────────────────────────
+
 
     @Override
     public void exibirConteudo() {
@@ -92,7 +85,7 @@ public class MentalMap extends MaterialDeEstudo implements Revisar {
         }
     }
 
-    // ── Revisar (SM-2) ────────────────────────────────────────
+
 
     @Override public int    getRepeticoes()               { return repeticoes; }
     @Override public void   setRepeticoes(int r)          { this.repeticoes = r; }

@@ -8,7 +8,7 @@ public class Resumo extends MaterialDeEstudo {
     private String conteudo;
 
     public Resumo(String titulo, String disciplina, String conteudo) {
-        super(titulo, disciplina); // Herda o sistema de revisão espaçada!
+        super(titulo, disciplina); 
         this.conteudo = conteudo;
     }
 
@@ -20,7 +20,7 @@ public class Resumo extends MaterialDeEstudo {
         System.out.println("Resumo: " + titulo + "\nConteúdo: " + conteudo);
     }
 
-    // A MÁGICA DA EXPORTAÇÃO PARA .TXT
+    // XPORTAÇÃO PARA .TXT
     public void exportarParaTXT() {
         try {
             // Cria uma pasta chamada "Exportacoes" se ela ainda não existir
@@ -29,7 +29,7 @@ public class Resumo extends MaterialDeEstudo {
                 diretorio.mkdir();
             }
 
-            // Limpa o nome do ficheiro (substitui espaços por underscores)
+            // Limpa o nome do ficheiro 
             String nomeSeguro = this.titulo.replaceAll("\\s+", "_");
             String caminhoArquivo = "Exportacoes/" + this.disciplina + "_" + nomeSeguro + ".txt";
             

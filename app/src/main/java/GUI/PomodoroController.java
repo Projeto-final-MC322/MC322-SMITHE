@@ -21,11 +21,11 @@ public class PomodoroController {
     @FXML private Button btnPausar;
 
     private Timeline timeline;
-    // Por padrão: Foco 25 min, Descanso 5 min
+    
     private int tempoTotal = 25 * 60; 
     private int tempoRestante = 25 * 60; 
     private int sessoesConcluidas = 0;
-    private boolean isFoco = true; // True = 25m, False = 5m
+    private boolean isFoco = true; 
 
     private EstatisticaDesempenho estatisticas;
     private TelaPrincipal telaPrincipal;
@@ -43,10 +43,8 @@ public class PomodoroController {
 
     @FXML
     public void cliqueIniciar() {
-        // Se já está a correr, não faz nada
         if (timeline != null && timeline.getStatus() == Timeline.Status.RUNNING) return;
 
-        // O motor do cronómetro que corre de forma independente em segundo plano
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             tempoRestante--;
             atualizarLabels();
@@ -81,7 +79,6 @@ public class PomodoroController {
             sessoesConcluidas++;
             lblSessoes.setText("Sessões concluídas: " + sessoesConcluidas);
             
-            // Integração dos Pontos Bazinga!
             if (estatisticas != null) {
                 estatisticas.adicionarPontosBazinga(20); 
                 Platform.runLater(() -> telaPrincipal.atualizarNivel());
@@ -89,7 +86,7 @@ public class PomodoroController {
 
             mostrarAviso("Sessão Concluída! 🎉", "Foco incrível! Você completou uma sessão e ganhou +20 Bazingas. Hora de relaxar.");
             
-            // Alterna para Descanso
+            
             isFoco = false;
             tempoTotal = 5 * 60;
             tempoRestante = tempoTotal;
@@ -97,7 +94,6 @@ public class PomodoroController {
         } else {
             mostrarAviso("Descanso Terminado! 🚀", "As baterias estão recarregadas. Vamos voltar aos estudos?");
             
-            // Alterna para Foco
             isFoco = true;
             tempoTotal = 25 * 60;
             tempoRestante = tempoTotal;
@@ -116,7 +112,6 @@ public class PomodoroController {
     }
 
     private void mostrarAviso(String titulo, String mensagem) {
-        // Platform.runLater garante que o aviso surge independentemente da aba onde estiver!
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(titulo);

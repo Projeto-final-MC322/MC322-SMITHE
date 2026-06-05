@@ -36,7 +36,6 @@ public class RevisoesController {
     public void marcarComoRevisado() {
         int index = listaRevisoes.getSelectionModel().getSelectedIndex();
         if(index >= 0 && !listaRevisoes.getItems().get(0).contains("Tudo em dia")) {
-            // Conta os pulos para achar o material correto
             int contador = 0;
             for (MaterialDeEstudo mat : todosMateriais) {
                 if (mat.precisaRevisar()) {

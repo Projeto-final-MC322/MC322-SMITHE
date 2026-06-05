@@ -1,24 +1,29 @@
 package GUI;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.application.Platform;
-import logica.GerenciadorDeConteudo;
-import logica.GerenciadorDeRevisao;
-import modelo.MentalMap;
-import modelo.MapNode;
-import modelo.MaterialDeEstudo;
-import modelo.EstatisticaDesempenho;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import logica.GerenciadorDeConteudo;
+import logica.GerenciadorDeRevisao;
+import modelo.EstatisticaDesempenho;
+import modelo.MapNode;
+import modelo.MaterialDeEstudo;
+import modelo.MentalMap;
 
 public class MapaMentalController {
     @FXML private VBox telaListagem;
@@ -38,7 +43,6 @@ public class MapaMentalController {
     private GerenciadorDeRevisao gerenciadorRevisao;
     private GerenciadorDeConteudo gerenciadorConteudo = new GerenciadorDeConteudo();
     
-    // Agora a tela suporta MÚLTIPLAS raízes independentes na mesma disciplina
     private List<MentalMap> mapasAtuais = new ArrayList<>();
     private String disciplinaAtual = "";
     
@@ -108,7 +112,7 @@ public class MapaMentalController {
         if (disciplina.isEmpty()) return;
         if (topico.isEmpty()) topico = "Tópico Central";
 
-        // Verifica se ESSA raiz já existe nesta disciplina
+        // Verifica se a raiz já existe nesta disciplina
         boolean existe = false;
         for (MaterialDeEstudo mat : gerenciadorConteudo.obterMateriaisPorDisciplina(disciplina)) {
             if (mat instanceof MentalMap && mat.getTitulo().equalsIgnoreCase(topico)) {
@@ -116,7 +120,6 @@ public class MapaMentalController {
             }
         }
 
-        // Se não existir, cria um NOVO mapa mental isolado dentro da mesma disciplina
         if (!existe) {
             MentalMap novo = new MentalMap(topico, disciplina);
             gerenciadorConteudo.adicionarMaterial(novo);
@@ -131,7 +134,7 @@ public class MapaMentalController {
         this.disciplinaAtual = disciplina;
         this.mapasAtuais.clear();
         
-        // Carrega todas as árvores independentes dessa disciplina
+        
         for (MaterialDeEstudo mat : gerenciadorConteudo.obterMateriaisPorDisciplina(disciplina)) {
             if (mat instanceof MentalMap) {
                 this.mapasAtuais.add((MentalMap) mat);
@@ -159,10 +162,10 @@ public class MapaMentalController {
         if (novoNome.isEmpty() || disciplinaAtual.isEmpty()) return;
         
         if (nodeSelecionado != null) {
-            // Adiciona um Subtópico conectado
+        
             nodeSelecionado.addChild(novoNome);
         } else {
-            // CRIA UM NOVO TÓPICO CENTRAL ISOLADO NA TELA ATUAL!
+          
             MentalMap novo = new MentalMap(novoNome, disciplinaAtual);
             gerenciadorConteudo.adicionarMaterial(novo);
             mapasAtuais.add(novo);
@@ -178,9 +181,9 @@ public class MapaMentalController {
 
     private void desenharMapaCompleto() {
         nodeViews.clear(); paneDesenho.getChildren().clear();
-        deselecionarNo(); // Limpa e prepara a interface
+        deselecionarNo(); 
         
-        // INTERAÇÃO NA INTERFACE: Clicar no fundo vazio para criar novas raízes!
+        
         paneDesenho.setOnMouseClicked(e -> {
             if (e.getTarget() == paneDesenho) {
                 deselecionarNo();
@@ -191,10 +194,10 @@ public class MapaMentalController {
         double cy = paneDesenho.getHeight() > 0 ? paneDesenho.getHeight() / 2.0 : 300;
         
         if (mapasAtuais.size() == 1) {
-            // Única raiz: fica exatamente no centro
+            
             desenharMapaDiametral(mapasAtuais.get(0).getRoot(), cx, cy, 0, 360, 0, null, 0);
         } else if (mapasAtuais.size() > 1) {
-            // Múltiplas raízes isoladas: Dividem os 360º de forma perfeitamente diametral!
+
             double fatia = 360.0 / mapasAtuais.size();
             for (int i = 0; i < mapasAtuais.size(); i++) {
                 desenharMapaDiametral(mapasAtuais.get(i).getRoot(), cx, cy, i * fatia, (i + 1) * fatia, 1, null, 0);
@@ -220,7 +223,6 @@ public class MapaMentalController {
         
         if (nivel > 0) {
             double angMeio = angInicio + (angFim - angInicio) / 2.0;
-            // Mantém os nós diametralmente espaçados (O centro é imaginário)
             double raio = nivel * 130.0; 
             x = cx + raio * Math.cos(Math.toRadians(angMeio));
             y = cy + raio * Math.sin(Math.toRadians(angMeio));
@@ -328,11 +330,10 @@ public class MapaMentalController {
             }
 
             if (isRoot) {
-                // Remove a raiz principal completamente!
                 mapasAtuais.remove(mapaAlvo);
                 gerenciadorConteudo.obterMateriaisPorDisciplina(disciplinaAtual).remove(mapaAlvo);
             } else {
-                // Remove apenas o subtópico do mapa que o contém
+                
                 for (MentalMap m : mapasAtuais) m.removerNo(nodeSelecionado.getName());
             }
             desenharMapaCompleto();

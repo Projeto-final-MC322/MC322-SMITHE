@@ -3,11 +3,6 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Nó de um grafo de conhecimento.
- * Cada nó tem: nome, definição, posição visual (x,y) e arestas para filhos.
- * A estrutura é uma árvore enraizada, mas preparada para múltiplas conexões.
- */
 public class MapNode {
 
     private String name;
@@ -26,7 +21,6 @@ public class MapNode {
         this.layoutY = 0;
     }
 
-    // ── Filhos / Arestas ──────────────────────────────────────
 
     /** Adiciona um filho já existente (para reconstrução do grafo). */
     public void addChild(MapNode child) {
@@ -71,7 +65,6 @@ public class MapNode {
         }
     }
 
-    // ── Getters / Setters ─────────────────────────────────────
 
     public String getName()                  { return name; }
     public void   setName(String name)       { this.name = name; }

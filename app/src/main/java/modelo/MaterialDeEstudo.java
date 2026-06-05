@@ -35,6 +35,5 @@ public abstract class MaterialDeEstudo {
         else this.data_proxima_revisao = hoje.plusDays(30).toString();
     }
 
-    // A LINHA QUE FALTAVA PARA PARAR OS ERROS:
     public abstract void exibirConteudo();
 }

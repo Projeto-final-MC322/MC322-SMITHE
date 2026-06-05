@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logica.GerenciadorDeRevisao;
 import modelo.EstatisticaDesempenho;
-import modelo.Flashcard; // Import adicionado
+import modelo.Flashcard; 
 
 public class FlashcardController {
     @FXML private Label lblContador, lblTextoCard;
@@ -20,8 +20,8 @@ public class FlashcardController {
     @FXML private TextField txtRegTitulo, txtRegDisciplina, txtRegFrente, txtRegVerso;
 
     private GerenciadorDeRevisao gerenciador;
-    private EstatisticaDesempenho estatisticas; // Variável adicionada
-    private TelaPrincipal telaPrincipal;        // Variável adicionada
+    private EstatisticaDesempenho estatisticas; 
+    private TelaPrincipal telaPrincipal;        
     
     private List<Flashcard> cardsHoje;
     private Flashcard cardAtual;
@@ -32,7 +32,6 @@ public class FlashcardController {
         this.gerenciador = gerenciador;
     }
 
-    // MÉTODO ADICIONADO PARA PARAR O ERRO
     public void setEstatisticas(EstatisticaDesempenho est, TelaPrincipal tela) {
         this.estatisticas = est;
         this.telaPrincipal = tela;

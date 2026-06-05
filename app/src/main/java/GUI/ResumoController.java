@@ -19,7 +19,7 @@ public class ResumoController {
     private EstatisticaDesempenho estatisticas;
     private TelaPrincipal telaPrincipal;
 
-    // Recebe o sistema de pontos da Tela Principal
+
     public void setEstatisticas(EstatisticaDesempenho est, TelaPrincipal tela) {
         this.estatisticas = est;
         this.telaPrincipal = tela;
@@ -31,32 +31,30 @@ public class ResumoController {
         String disciplina = txtDisciplina.getText().trim();
         String conteudo = txtConteudo.getText().trim();
 
-        // 1. Validação de Segurança
+        // Validação de Segurança
         if (titulo.isEmpty() || disciplina.isEmpty() || conteudo.isEmpty()) {
             mostrarAviso(Alert.AlertType.WARNING, "Campos Incompletos", "Por favor, preencha o Título, Disciplina e o Conteúdo do seu resumo antes de salvar.");
             return;
         }
 
-        // 2. Cria o objeto Resumo
+        // Cria o objeto Resumo
         Resumo novoResumo = new Resumo(titulo, disciplina, conteudo);
 
-        // 3. Adiciona à base de dados para aparecer na aba de Revisões Espaçadas
+        // Adiciona à base de dados para aparecer na aba de Revisões Espaçadas
         gerenciadorConteudo.adicionarMaterial(novoResumo);
 
-        // 4. Executa a exportação física (.txt)
+        // Executa a exportação
         novoResumo.exportarParaTXT();
 
-        // 5. Integração Bazinga! Ganha +15 Pontos por criar um resumo
+        // Ganha +15 Pontos por criar um resumo
         if (estatisticas != null) {
             estatisticas.adicionarPontosBazinga(15);
             Platform.runLater(() -> telaPrincipal.atualizarNivel());
         }
-
-        // 6. Confirmação Visual
         mostrarAviso(Alert.AlertType.INFORMATION, "Resumo Exportado!", 
             "O resumo '" + titulo + "' foi exportado com sucesso para a pasta 'Exportacoes' no seu computador!\n\nGanhou +15 Pontos Bazinga!");
 
-        // 7. Limpa a tela para o próximo resumo
+        // Limpa a tela para o próximo resumo
         txtTitulo.clear();
         txtDisciplina.clear();
         txtConteudo.clear();

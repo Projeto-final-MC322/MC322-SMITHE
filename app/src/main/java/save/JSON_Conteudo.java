@@ -1,20 +1,44 @@
 package save;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import logica.GerenciadorDeConteudo;
 import modelo.MaterialDeEstudo;
 import modelo.MentalMap;
 import modelo.Resumo;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class JSON_Conteudo {
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    
+    // O Adaptador Mágico que ensina o GSON a guardar Datas de forma segura
+    private Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
+                @Override
+                public void write(JsonWriter out, LocalDate value) throws IOException {
+                    if (value == null) out.nullValue();
+                    else out.value(value.toString()); // Salva como "AAAA-MM-DD"
+                }
+                @Override
+                public LocalDate read(JsonReader in) throws IOException {
+                    if (in.peek() == com.google.gson.stream.JsonToken.NULL) {
+                        in.nextNull();
+                        return null;
+                    }
+                    return LocalDate.parse(in.nextString()); // Lê de volta do JSON
+                }
+            })
+            .create();
 
     private class Wrapper {
         List<MentalMap> mapas = new ArrayList<>();

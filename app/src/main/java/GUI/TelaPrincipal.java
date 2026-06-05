@@ -19,7 +19,6 @@ public class TelaPrincipal {
     private EstatisticaDesempenho estatisticas;
     private boolean modoEscuro = false;
     
-    // VARIÁVEL DE CACHE: Guarda o Pomodoro a correr em segundo plano!
     private Parent telaPomodoroCache = null;
 
     public void setGerenciador(GerenciadorDeRevisao gerenciador){ this.gerenciador = gerenciador; }
@@ -55,7 +54,6 @@ public class TelaPrincipal {
         try {
             Parent novaTela;
 
-            // Se for o Pomodoro e já estiver no cache, carrega-o sem reiniciar o tempo!
             if (arquivoFxml.equals("PomodoroView.fxml") && telaPomodoroCache != null) {
                 novaTela = telaPomodoroCache;
             } else {
@@ -75,11 +73,10 @@ public class TelaPrincipal {
             } else if(controlador instanceof PomodoroController) {
                 ((PomodoroController) controlador).setEstatisticas(this.estatisticas, this);
             } else if(controlador instanceof ResumoController) {
-                // ESTA É A LINHA NOVA: Liga os pontos Bazinga ao Resumo
                 ((ResumoController) controlador).setEstatisticas(this.estatisticas, this);
             }
 
-                // Salva a primeira execução do Pomodoro no Cache
+            
                 if (arquivoFxml.equals("PomodoroView.fxml")) {
                     telaPomodoroCache = novaTela;
                 }
