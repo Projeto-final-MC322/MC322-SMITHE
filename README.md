@@ -3,91 +3,144 @@ Projeto da disciplina MC322 1s2026 dos alunos Guilherme Arthur, Mariana Fonsechi
 
 ```mermaid
 classDiagram
-    class Revisao {
+    class Revisar {
         <<interface>>
-        +calcularProximaRevisao(int desempenho)* void
+        +getRepeticoes() int
+        +setRepeticoes(int) void
+        +getFacilidade() double
+        +setFacilidade(double) void
+        +getIntervalosDias() int
+        +setIntervalos(int) void
+        +getDataProximaRevisao() LocalDate
+        +setDataProximaRevisao(LocalDate) void
     }
+    
     class Exportar{
         <<interface>>
-        +exportarArquivo(String caminho)* void
+        +exportarParaTXT() void
     }
-    class Notificar{
-        <<interface>>
-        +enviarLembrete()* void
-    }
+    
     class Timer {
         <<interface>>
-        +iniciarTimer()* void
-        +pausar()* void
+        +iniciarTimer() void
+        +pausarTimer() void
     }
+
     %% Classes Abstratas
     class MaterialDeEstudo {
         <<abstract>>
-        -String titulo
-        -LocalDate dataAdicao
-        -String disciplina
+        #String titulo
+        #String disciplina
+        #String data_adicao
+        #String data_proxima_revisao
+        #int num_revisoes
         +exibirConteudo()* void
-        +getTitulo() String
+        +precisaRevisar() boolean
+        +registrarRevisao() void
     }
 
     class Estatistica {
         <<abstract>>
-        -int totalSessoes
-        +gerarRelatorioDesempenho()* String
+        -int sessoesConcluidas
+        +gerarRelatorio()* String
+        +registrarSessoesConcluidas() void
     }
 
-    %% Classes Concretas
+    %% Classes Concretas (Modelos)
     class Flashcard {
         -String frente
         -String verso
-        -int facilidade
-        -LocalDate proximaRevisao
+        -double facilidade
+        -int repeticoes
+        -int intervalos
+        -LocalDate DataProximaRevisao
         +exibirConteudo() void
         +calcularProximaRevisao(int desempenho) void
     }
 
     class Resumo{
-        -String texto
+        -String conteudo
         +exibirConteudo() void
-        +exportarArquivo(string caminho) void
+        +exportarParaTXT() void
     }
 
-    class Progresso {
-        -int nivel
-        -long barzingas
-        +adicionarBarzingas(int valor) void
-        +verificarSubidaNivel() vpod
+    class MentalMap {
+        -MapNode root
+        -int repeticoes
+        -double facilidade
+        -int intervaloDias
+        -LocalDate dataProximaRevisao
+        +adicionarNo(String paiNome, String novoNome) MapNode
+        +removerNo(String nome)
+        +removerRecursivo(Mapnode atual, String alvo) boolean
+        +exibirConteudo() void
+        +revisar(int nota) void
+        +precisaRevisarHoje() boolean
+        +imprimirArvore(MapNode no, int nivel)
+    }
+
+    class MapNode {
+        -String name
+        -String definition
+        -List~MapNode~ children
+        +addChild(MapNode) void
+        +addChild(String) MapNode
+        +removeChild(String) boolean
+        +findByName(String) MapNode
+        +allNodes() List ~MapNode
+        +collectNodes(MapNode, List ~MapNode) void
     }
 
     class Pomodoro{
-        -int minutosFoco
-        -boolean executando
-        +iniciarTImer() void
-        +pausar() void
+        -int minutos
+        -boolean emExecucao
+        +iniciarTimer() void
+        +pausarTimer() void
     }
 
     class EstatisticaDesempenho{
-        -Map~LocalDate, Interger ~Acertos
+        -int totalCardEstudados
+        -int Bazingastotais
+        -int sessoes_pomodoro_concluidas
         +gerarRelatorio() String
+        +registarsessãoPomodoro() void
+        +computarCards(int) void
+        +adicionarPontosBazinga(int) void
+        +getNivel() int
     }
 
-    class Gerenciador{
-        -List~MaterialDeEstudo~ materiais
-        -ProgressoUser progresso
-        +adicionarMaterial(MaterialDeEstudo mat) void
-        +importarDeck(string caminho) void
-        +exportar deck(string caminho) void
-        +salvarProgresso() void
-        +carregarDados() void
+    %% Classes Gerenciadoras (Lógica)
+    class GerenciadorDeConteudo{
+        -Map~String, List~MaterialDeEstudo~~ materiais_das_disciplinas$
+        +adicionarMaterial(MaterialDeEstudo) void
+        +obterMateriaisPorDisciplina(String) List~MaterialDeEstudo~
+        +obterMapaMentalDaDisciplina(String) MentalMap
+        +obterTodososMateriais() List~MaterialDeEstudo~
+        +limparMemoria() void
     }
 
-    %% Relacionamentos
+    class GerenciadorDeRevisao{
+        -Map~String, List~Flashcard~~ decks
+        +adicionarCard(Flashcard) void
+        +criarNovoFlashcard(String, String, String, String) void
+        +obtercards_hoje() List~Flashcard~
+        +avaliaFlashcard(Flashcard, int) void
+    }
+
+    %% Relacionamentos e Heranças
     MaterialDeEstudo <|-- Flashcard : Herança
     MaterialDeEstudo <|-- Resumo : Herança
-    Estatistica <|-- EstatisticaDesempenho
+    MaterialDeEstudo <|-- MentalMap : Herança
+    MentalMap *-- MapNode : Composição
+    
+    Estatistica <|-- EstatisticaDesempenho : Herança
+    
     Revisar <.. Flashcard : Implementa
+    Revisar <.. MentalMap : Implementa
     Exportar <.. Resumo : Implementa
-    Gerenciador "1" o-- "*" Progresso : Contém
-    Gerenciador "1" o-- "*" MaterialDeEstudo : Agregação
+    Timer <.. Pomodoro : Implementa
+    
+    GerenciadorDeConteudo "1" o-- "*" MaterialDeEstudo : Agregação
+    GerenciadorDeRevisao "1" o-- "*" Flashcard : Agregação
 ```
 
