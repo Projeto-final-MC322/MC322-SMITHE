@@ -1,0 +1,63 @@
+{
+  "mapas": [
+    {
+      "root": {
+        "name": "Enum",
+        "definition": "",
+        "children": [
+          {
+            "name": "SMITHE",
+            "definition": "",
+            "children": [],
+            "layoutX": 0.0,
+            "layoutY": 0.0
+          },
+          {
+            "name": "ENUM",
+            "definition": "",
+            "children": [],
+            "layoutX": 0.0,
+            "layoutY": 0.0
+          },
+          {
+            "name": "VEREDICT",
+            "definition": "",
+            "children": [],
+            "layoutX": 0.0,
+            "layoutY": 0.0
+          }
+        ],
+        "layoutX": 0.0,
+        "layoutY": 0.0
+      },
+      "repeticoes": 0,
+      "facilidade": 2.5,
+      "intervaloDias": 0,
+      "dataProximaRevisao": "2026-06-05",
+      "titulo": "Enum",
+      "disciplina": "MC322",
+      "data_adicao": "2026-06-05",
+      "data_proxima_revisao": "2026-06-06",
+      "num_revisoes": 0
+    },
+    {
+      "root": {
+        "name": "ENUM",
+        "definition": "",
+        "children": [],
+        "layoutX": 0.0,
+        "layoutY": 0.0
+      },
+      "repeticoes": 0,
+      "facilidade": 2.5,
+      "intervaloDias": 0,
+      "dataProximaRevisao": "2026-06-05",
+      "titulo": "ENUM",
+      "disciplina": "MC322",
+      "data_adicao": "2026-06-05",
+      "data_proxima_revisao": "2026-06-06",
+      "num_revisoes": 0
+    }
+  ],
+  "resumos": []
+}

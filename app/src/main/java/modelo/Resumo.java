@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Resumo extends MaterialDeEstudo {
+public class Resumo extends MaterialDeEstudo implements Exportar {
     private String conteudo;
 
     public Resumo(String titulo, String disciplina, String conteudo) {
