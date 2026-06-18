@@ -1,7 +1,7 @@
 package logica;
-import modelo.Flashcard;
-import modelo.Revisar;
 import java.time.LocalDate;
+
+import modelo.Revisar;
 
 public class Revisao_Espacada {
     public void processa_revisao(Revisar item ,int nota){

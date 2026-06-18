@@ -102,6 +102,8 @@ public class FlashcardController {
             txtRegTitulo.clear(); txtRegDisciplina.clear(); txtRegFrente.clear(); txtRegVerso.clear();
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Flashcard criado com sucesso!");
             alert.showAndWait();
+
+            iniciarEstudo();
         }
     }
 }

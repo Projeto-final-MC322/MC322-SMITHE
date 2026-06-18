@@ -15,12 +15,35 @@
           {
             "name": "ENUM",
             "definition": "",
-            "children": [],
+            "children": [
+              {
+                "name": "Boson",
+                "definition": "Boson é gay",
+                "children": [
+                  {
+                    "name": "Boson2",
+                    "definition": "",
+                    "children": [],
+                    "layoutX": 0.0,
+                    "layoutY": 0.0
+                  }
+                ],
+                "layoutX": 0.0,
+                "layoutY": 0.0
+              }
+            ],
             "layoutX": 0.0,
             "layoutY": 0.0
           },
           {
             "name": "VEREDICT",
+            "definition": "",
+            "children": [],
+            "layoutX": 0.0,
+            "layoutY": 0.0
+          },
+          {
+            "name": "Mantagute",
             "definition": "",
             "children": [],
             "layoutX": 0.0,
@@ -37,8 +60,8 @@
       "titulo": "Enum",
       "disciplina": "MC322",
       "data_adicao": "2026-06-05",
-      "data_proxima_revisao": "2026-06-06",
-      "num_revisoes": 0
+      "data_proxima_revisao": "2026-06-18",
+      "num_revisoes": 1
     },
     {
       "root": {
@@ -55,8 +78,8 @@
       "titulo": "ENUM",
       "disciplina": "MC322",
       "data_adicao": "2026-06-05",
-      "data_proxima_revisao": "2026-06-06",
-      "num_revisoes": 0
+      "data_proxima_revisao": "2026-06-18",
+      "num_revisoes": 1
     }
   ],
   "resumos": []

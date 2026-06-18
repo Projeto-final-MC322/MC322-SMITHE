@@ -21,6 +21,12 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
         this.facilidade = 2.5;
         this.intervalos = 0;
         this.DataProximaRevisao = LocalDate.now();
+        this.data_proxima_revisao = this.DataProximaRevisao.toString();
+    }
+    @Override
+    public boolean precisaRevisar() {
+        if (this.DataProximaRevisao == null) return false;
+        return !LocalDate.now().isBefore(this.DataProximaRevisao);
     }
     
     @Override
@@ -72,6 +78,7 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     }
     public void setDataProximaRevisao(LocalDate dataProximaRevisao){
         this.DataProximaRevisao = dataProximaRevisao;
+        this.data_proxima_revisao = dataProximaRevisao.toString();
     }
 
 
