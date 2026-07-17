@@ -20,14 +20,13 @@ import modelo.Resumo;
 
 public class JSON_Conteudo {
     
-    // O Adaptador Mágico que ensina o GSON a guardar Datas de forma segura
     private Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
                 @Override
                 public void write(JsonWriter out, LocalDate value) throws IOException {
                     if (value == null) out.nullValue();
-                    else out.value(value.toString()); // Salva como "AAAA-MM-DD"
+                    else out.value(value.toString());
                 }
                 @Override
                 public LocalDate read(JsonReader in) throws IOException {
