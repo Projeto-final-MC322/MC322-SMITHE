@@ -25,11 +25,16 @@ dependencies {
     testImplementation libs.junit.jupiter
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
+    
+    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
 
     // This dependency is used by the application.
     implementation libs.guava
     
     implementation 'com.google.code.gson:gson:2.10.1'
+    
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

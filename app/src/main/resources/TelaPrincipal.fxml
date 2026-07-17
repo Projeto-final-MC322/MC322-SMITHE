@@ -12,7 +12,7 @@
                 <Label text="SMITHE" style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="texto-padrao" />
                 <Label fx:id="lblNivel" text="Nível 1 | 0 BZ" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 5 10; -fx-background-radius: 15;" styleClass="botao-padrao" />
                 
-                <Button text="🌙" onAction="#alternarTema" styleClass="botao-padrao" style="-fx-font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'sans-serif';">
+                <Button fx:id="btnTema" text="[Modo Escuro / Claro]" onAction="#alternarTema" styleClass="botao-padrao">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
