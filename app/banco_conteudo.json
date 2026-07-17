@@ -1,0 +1,54 @@
+{
+  "mapas": [
+    {
+      "root": {
+        "name": "TESTE",
+        "definition": "",
+        "children": [
+          {
+            "name": "teste 1.1",
+            "definition": "",
+            "children": [
+              {
+                "name": "teste 2.2",
+                "definition": "",
+                "children": [],
+                "layoutX": 0.0,
+                "layoutY": 0.0
+              }
+            ],
+            "layoutX": 0.0,
+            "layoutY": 0.0
+          },
+          {
+            "name": "teste 1.2",
+            "definition": "",
+            "children": [
+              {
+                "name": "teste 2.1",
+                "definition": "",
+                "children": [],
+                "layoutX": 0.0,
+                "layoutY": 0.0
+              }
+            ],
+            "layoutX": 0.0,
+            "layoutY": 0.0
+          }
+        ],
+        "layoutX": 0.0,
+        "layoutY": 0.0
+      },
+      "repeticoes": 0,
+      "facilidade": 2.5,
+      "intervaloDias": 0,
+      "dataProximaRevisao": "2026-07-17",
+      "titulo": "TESTE",
+      "disciplina": "MC322",
+      "data_adicao": "2026-07-17",
+      "data_proxima_revisao": "2026-07-18",
+      "num_revisoes": 0
+    }
+  ],
+  "resumos": []
+}
