@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import logica.GerenciadorDeRevisao;
 import modelo.EstatisticaDesempenho;
-import modelo.Flashcard; 
+import modelo.Flashcard;
 
 public class FlashcardController {
     @FXML private Label lblContador, lblTextoCard;
