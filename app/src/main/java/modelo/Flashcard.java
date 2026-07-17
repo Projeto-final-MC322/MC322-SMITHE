@@ -40,7 +40,7 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
     }
 
     public String getDisciplina(){
-        return this.disciplina
+        return this.disciplina;
     }
 
     public String getFrente(){

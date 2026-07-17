@@ -2,32 +2,17 @@
   "mapas": [
     {
       "root": {
-        "name": "Enum",
+        "name": "TESTE",
         "definition": "",
         "children": [
           {
-            "name": "SMITHE",
-            "definition": "",
-            "children": [],
-            "layoutX": 0.0,
-            "layoutY": 0.0
-          },
-          {
-            "name": "ENUM",
+            "name": "teste 1.1",
             "definition": "",
             "children": [
               {
-                "name": "Boson",
-                "definition": "Boson é gay",
-                "children": [
-                  {
-                    "name": "Boson2",
-                    "definition": "",
-                    "children": [],
-                    "layoutX": 0.0,
-                    "layoutY": 0.0
-                  }
-                ],
+                "name": "teste 2.2",
+                "definition": "",
+                "children": [],
                 "layoutX": 0.0,
                 "layoutY": 0.0
               }
@@ -36,16 +21,17 @@
             "layoutY": 0.0
           },
           {
-            "name": "VEREDICT",
+            "name": "teste 1.2",
             "definition": "",
-            "children": [],
-            "layoutX": 0.0,
-            "layoutY": 0.0
-          },
-          {
-            "name": "Mantagute",
-            "definition": "",
-            "children": [],
+            "children": [
+              {
+                "name": "teste 2.1",
+                "definition": "",
+                "children": [],
+                "layoutX": 0.0,
+                "layoutY": 0.0
+              }
+            ],
             "layoutX": 0.0,
             "layoutY": 0.0
           }
@@ -56,30 +42,12 @@
       "repeticoes": 0,
       "facilidade": 2.5,
       "intervaloDias": 0,
-      "dataProximaRevisao": "2026-06-05",
-      "titulo": "Enum",
+      "dataProximaRevisao": "2026-07-17",
+      "titulo": "TESTE",
       "disciplina": "MC322",
-      "data_adicao": "2026-06-05",
-      "data_proxima_revisao": "2026-06-18",
-      "num_revisoes": 1
-    },
-    {
-      "root": {
-        "name": "ENUM",
-        "definition": "",
-        "children": [],
-        "layoutX": 0.0,
-        "layoutY": 0.0
-      },
-      "repeticoes": 0,
-      "facilidade": 2.5,
-      "intervaloDias": 0,
-      "dataProximaRevisao": "2026-06-05",
-      "titulo": "ENUM",
-      "disciplina": "MC322",
-      "data_adicao": "2026-06-05",
-      "data_proxima_revisao": "2026-06-18",
-      "num_revisoes": 1
+      "data_adicao": "2026-07-17",
+      "data_proxima_revisao": "2026-07-18",
+      "num_revisoes": 0
     }
   ],
   "resumos": []
