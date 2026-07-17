@@ -35,6 +35,14 @@ public class Flashcard extends MaterialDeEstudo implements Revisar {
         System.out.println("Verso: " + this.verso);
     }
 
+    public String getTitulo(){
+        return this.titulo;
+    }
+
+    public String getDisciplina(){
+        return this.disciplina
+    }
+
     public String getFrente(){
         return this.frente;
     }
