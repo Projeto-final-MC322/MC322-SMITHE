@@ -2,6 +2,7 @@ package GUI;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -10,10 +11,12 @@ import javafx.scene.layout.StackPane;
 import logica.GerenciadorDeRevisao;
 import modelo.EstatisticaDesempenho;
 
+
 public class TelaPrincipal {
     @FXML private BorderPane painelPrincipal;
     @FXML private StackPane Conteudo;
     @FXML private Label lblNivel;
+    @FXML private Button btnTema;
 
     private GerenciadorDeRevisao gerenciador;
     private EstatisticaDesempenho estatisticas;

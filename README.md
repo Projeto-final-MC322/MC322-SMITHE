@@ -1,146 +1,57 @@
-# MC322-Projeto_final
+# SMITHE - Study Management in Tech Engineering
 Projeto da disciplina MC322 1s2026 dos alunos Guilherme Arthur, Mariana Fonsechi, Victória Leite e Vitor Ribeiro Lima.
 
-```mermaid
-classDiagram
-    class Revisar {
-        <<interface>>
-        +getRepeticoes() int
-        +setRepeticoes(int) void
-        +getFacilidade() double
-        +setFacilidade(double) void
-        +getIntervalosDias() int
-        +setIntervalos(int) void
-        +getDataProximaRevisao() LocalDate
-        +setDataProximaRevisao(LocalDate) void
-    }
-    
-    class Exportar{
-        <<interface>>
-        +exportarParaTXT() void
-    }
-    
-    class Timer {
-        <<interface>>
-        +iniciarTimer() void
-        +pausarTimer() void
-    }
+O **SMITHE** é um aplicativo desktop de gerenciamento de estudos desenvolvido em Java com interface gráfica em JavaFX. Criado com foco nas necessidades e na pesada rotina de disciplinas práticas e teóricas de estudantes de Engenharia de Computação da Unicamp, o projeto visa otimizar o aprendizado e a retenção de conteúdo através de técnicas de estudo consolidadas e gamificação.
 
-    %% Classes Abstratas
-    class MaterialDeEstudo {
-        <<abstract>>
-        #String titulo
-        #String disciplina
-        #String data_adicao
-        #String data_proxima_revisao
-        #int num_revisoes
-        +exibirConteudo()* void
-        +precisaRevisar() boolean
-        +registrarRevisao() void
-    }
+## 🚀 Funcionalidades
 
-    class Estatistica {
-        <<abstract>>
-        -int sessoesConcluidas
-        +gerarRelatorio()* String
-        +registrarSessoesConcluidas() void
-    }
+* **Flashcards & Revisão Espaçada:** Crie cartões de estudo (frente e verso) e deixe o algoritmo integrado calcular automaticamente o melhor momento para revisá-los, maximizando a memorização a longo prazo.
+* **Mapas Mentais:** Estruture visualmente o conhecimento por meio de nós e conexões para entender sistemas complexos.
+* **Resumos:** Organize suas anotações e materiais de estudo de forma estruturada e centralizada.
+* **Timer Pomodoro:** Gerencie seu tempo de foco e pausas para manter a produtividade sem fadiga.
+* **Desempenho:** Ganhe pontos (BZ) e suba de nível no aplicativo conforme conclui revisões e atinge metas de estudo.
+* **Modo Claro / Escuro:** Interface totalmente adaptável com troca de tema dinâmica para maior conforto visual.
 
-    %% Classes Concretas (Modelos)
-    class Flashcard {
-        -String frente
-        -String verso
-        -double facilidade
-        -int repeticoes
-        -int intervalos
-        -LocalDate DataProximaRevisao
-        +exibirConteudo() void
-        +calcularProximaRevisao(int desempenho) void
-    }
+## 🛠️ Tecnologias Utilizadas
 
-    class Resumo{
-        -String conteudo
-        +exibirConteudo() void
-        +exportarParaTXT() void
-    }
+* **Linguagem Base:** Java
+* **Interface Gráfica:** JavaFX (Estruturação com FXML e estilização nativa com CSS)
+* **Build Tool & Gerenciamento de Dependências:** Gradle
+* **Testes:** JUnit para testes unitários e de integração
+* **Armazenamento:** Serialização local de dados utilizando JSON
 
-    class MentalMap {
-        -MapNode root
-        -int repeticoes
-        -double facilidade
-        -int intervaloDias
-        -LocalDate dataProximaRevisao
-        +adicionarNo(String paiNome, String novoNome) MapNode
-        +removerNo(String nome)
-        +removerRecursivo(Mapnode atual, String alvo) boolean
-        +exibirConteudo() void
-        +revisar(int nota) void
-        +precisaRevisarHoje() boolean
-        +imprimirArvore(MapNode no, int nivel)
-    }
+## 📂 Estrutura do Projeto
 
-    class MapNode {
-        -String name
-        -String definition
-        -List~MapNode~ children
-        +addChild(MapNode) void
-        +addChild(String) MapNode
-        +removeChild(String) boolean
-        +findByName(String) MapNode
-        +allNodes() List ~MapNode
-        +collectNodes(MapNode, List ~MapNode) void
-    }
+O código-fonte segue uma arquitetura orientada a componentes que separa as responsabilidades de negócio e interface:
 
-    class Pomodoro{
-        -int minutos
-        -boolean emExecucao
-        +iniciarTimer() void
-        +pausarTimer() void
-    }
+* `GUI/`: Controladores das telas JavaFX e captura de interações do usuário.
+* `logica/`: Sistemas centrais do aplicativo, como `GerenciadorDeRevisao`, cálculo de `Revisao_Espacada` e motor do `TimerPomodoro`.
+* `modelo/`: Definições das entidades principais (`Flashcard`, `Resumo`, `MentalMap`, `EstatisticaDesempenho`).
+* `save/`: Classes dedicadas à persistência e manipulação de arquivos (JSON) para salvar o estado e progresso do usuário de forma contínua.
 
-    class EstatisticaDesempenho{
-        -int totalCardEstudados
-        -int Bazingastotais
-        -int sessoes_pomodoro_concluidas
-        +gerarRelatorio() String
-        +registarsessãoPomodoro() void
-        +computarCards(int) void
-        +adicionarPontosBazinga(int) void
-        +getNivel() int
-    }
+## ⚙️ Como Executar
 
-    %% Classes Gerenciadoras (Lógica)
-    class GerenciadorDeConteudo{
-        -Map~String, List~MaterialDeEstudo~~ materiais_das_disciplinas$
-        +adicionarMaterial(MaterialDeEstudo) void
-        +obterMateriaisPorDisciplina(String) List~MaterialDeEstudo~
-        +obterMapaMentalDaDisciplina(String) MentalMap
-        +obterTodososMateriais() List~MaterialDeEstudo~
-        +limparMemoria() void
-    }
+Certifique-se de ter o **JDK** adequado configurado e o **Gradle** instalado na sua máquina.
 
-    class GerenciadorDeRevisao{
-        -Map~String, List~Flashcard~~ decks
-        +adicionarCard(Flashcard) void
-        +criarNovoFlashcard(String, String, String, String) void
-        +obtercards_hoje() List~Flashcard~
-        +avaliaFlashcard(Flashcard, int) void
-    }
+1. Navegue até a pasta raiz do projeto:
+   ```bash
+   cd ~/Estudos/SMITHE
+   ```
+2. Limpe os builds antigos e recompile o projeto:
+   ```bash
+   gradle clean build
+   ```
+3. Execute o aplicativo:
+   ```bash
+   gradle run
+   ```
 
-    %% Relacionamentos e Heranças
-    MaterialDeEstudo <|-- Flashcard : Herança
-    MaterialDeEstudo <|-- Resumo : Herança
-    MaterialDeEstudo <|-- MentalMap : Herança
-    MentalMap *-- MapNode : Composição
-    
-    Estatistica <|-- EstatisticaDesempenho : Herança
-    
-    Revisar <.. Flashcard : Implementa
-    Revisar <.. MentalMap : Implementa
-    Exportar <.. Resumo : Implementa
-    Timer <.. Pomodoro : Implementa
-    
-    GerenciadorDeConteudo "1" o-- "*" MaterialDeEstudo : Agregação
-    GerenciadorDeRevisao "1" o-- "*" Flashcard : Agregação
+## 🧪 Testes
+
+Para visualizar e executar a suíte de testes unitários do projeto e garantir que as entidades do domínio e controladores estão funcionando corretamente:
+```bash
+gradle test
 ```
+Os relatórios detalhados dos testes serão gerados em `app/build/reports/tests/test/index.html`.
+
 

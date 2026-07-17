@@ -13,13 +13,13 @@ public class FlashcardTest {
 
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
 
-        assertEquals("titulo", fcard.getTitulo);
-        assertEquals("disciplina", fcard.getDisciplina);
-        assertEquals("frente", fcard.getFrente);
-        assertEquals("verso", fcard.getVerso);
+        assertEquals("titulo", fcard.getTitulo());
+        assertEquals("disciplina", fcard.getDisciplina());
+        assertEquals("frente", fcard.getFrente());
+        assertEquals("verso", fcard.getVerso());
 
-        assertEquals(0, card.getRepeticoes());
-        assertEquals(LocalDate.now(), card.getDataProximaRevisao());
+        assertEquals(0, fcard.getRepeticoes());
+        assertEquals(LocalDate.now(), fcard.getDataProximaRevisao());
 
     }
 
@@ -29,8 +29,8 @@ public class FlashcardTest {
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
 
         // erro -> desempenho = 0
-        assertDoesNotThrow(() -> card.calcularProximaRevisao(0));
-        assertNotNull(card.getDataProximaRevisao());
+        assertDoesNotThrow(() -> fcard.calcularProximaRevisao(0));
+        assertNotNull(fcard.getDataProximaRevisao());
 
     }
 
@@ -40,9 +40,9 @@ public class FlashcardTest {
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
 
         // acerto -> desempenho = 5
-        assertDoesNotThrow(() -> card.calcularProximaRevisao(5));
+        assertDoesNotThrow(() -> fcard.calcularProximaRevisao(5));
         // verifica se a data da proxima revisao nao ficou travada no mesmo dia
-        assertTrue(card.getDataProximaRevisao().isAfter(LocalDate.now()));
+        assertTrue(fcard.getDataProximaRevisao().isAfter(LocalDate.now()));
 
     }
 
@@ -51,18 +51,18 @@ public class FlashcardTest {
 
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
 
-        card.setFrente("frente nova");
-        card.setVerso("verso novo");
+        fcard.setFrente("frente nova");
+        fcard.setVerso("verso novo");
 
-        assertEquals("frente nova", card.getFrente());
-        assertEquals("verso novo", card.getVerso());
+        assertEquals("frente nova", fcard.getFrente());
+        assertEquals("verso novo", fcard.getVerso());
     }
 
     @Test
     public void testExibirConteudoFlashcard(){
 
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
-        assertDoesNotThrow(() -> card.exibirConteudo());
+        assertDoesNotThrow(() -> fcard.exibirConteudo());
 
     }
 
@@ -71,13 +71,13 @@ public class FlashcardTest {
 
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
 
-        card.setRepeticoes(10);
-        card.setFacilidade(10);
-        card.setIntervalos(10);
+        fcard.setRepeticoes(10);
+        fcard.setFacilidade(10);
+        fcard.setIntervalos(10);
 
-        assertEquals(10, card.getRepeticoes());
-        assertEquals(10, card.getFacilidade());
-        assertEquals(10, card.getIntervalosDias());
+        assertEquals(10, fcard.getRepeticoes());
+        assertEquals(10, fcard.getFacilidade());
+        assertEquals(10, fcard.getIntervalosDias());
 
     }
 
@@ -87,8 +87,8 @@ public class FlashcardTest {
         Flashcard fcard = new Flashcard("titulo", "disciplina", "frente", "verso");
         LocalDate nova_data = LocalDate.now().plusDays(2);
 
-        card.setDataProximaRevisao(nova_data);
-        assertEquals(nova_data, card.getDataProximaRevisao());
+        fcard.setDataProximaRevisao(nova_data);
+        assertEquals(nova_data, fcard.getDataProximaRevisao());
 
     }
 }
